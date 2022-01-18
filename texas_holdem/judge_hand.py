@@ -1,18 +1,8 @@
 import collections
 
 
-def main():
-    player_card = ['C1', 'H11']
-    field_card = ['H10', 'D12', 'D13', 'D11', 'C5']
-    hand = player_card + field_card
-
-    judge_hand(hand)
-
-"""
-param: ['C6', 'H11', 'H10', 'D12', 'D13', 'D11', 'C5']
-"""
 # フィールドカード5枚と手札2枚の7枚から一番強い役になるように5枚を選択する
-def judge_hand(hand):
+class JudgeHand:
     # flush
     def judge_flush(mark, number):
         mark_collection = collections.Counter(mark)
@@ -63,6 +53,17 @@ def judge_hand(hand):
     print(unique_number)
     judge_flush(mark, number)
 
+
+def main():
+    player_card = ['C1', 'H11']
+    field_card = ['H10', 'D12', 'D13', 'D11', 'C5']
+    hand = player_card + field_card
+
+    judge_hand(hand)
+
+"""
+param: ['C6', 'H11', 'H10', 'D12', 'D13', 'D11', 'C5']
+"""
 
 if __name__ == '__main__':
     main()
