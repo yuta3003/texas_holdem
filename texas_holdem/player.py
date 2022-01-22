@@ -16,8 +16,17 @@ class Player:
 
 def main():
     game_deck = deck.Deck()
+
+    print("----- alice ----------")
+    alice = Player("alice")
+    alice.draw(game_deck)
+    alice.draw(game_deck)
+    alice.show_hand()
+    print("----- alice ----------")
+
     print("----- bob ----------")
-    bob = Player("Bob")
+    bob = Player("bob")
+    bob.draw(game_deck)
     bob.draw(game_deck)
     bob.show_hand()
     print("----- bob ----------")
