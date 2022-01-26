@@ -1,17 +1,19 @@
-
 class Card:
     def __init__(self, suit: str, number: int):
-        self.suit = suit
-        self.number = number
+        self.__suit = suit
+        self.__number = number
 
     def suit(self):
-        return self.suit
+        return self.__suit
 
-    def number(self):
-        return self.number
+    def number(self, ace14=False):
+        number = self.__number
+        if ace14 and self.__number == 1:
+            number = 14
+        return number
 
     def show(self):
-        print("{}{}".format(self.suit, self.number))
+        print("{}{}".format(self.__suit, self.__number))
 
 
 def main():

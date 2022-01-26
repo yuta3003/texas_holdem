@@ -4,6 +4,15 @@ import player
 import role
 
 class Game:
+    """
+    メインゲーム
+
+    Examples
+    --------
+    >>> game = Game()
+    >>> game.progress() # ゲームスタート
+    """
+
     def __init__(self, number_of_players=2):
         self.number_of_players = number_of_players
         self.players = []

@@ -2,8 +2,11 @@ import collections
 from typing import List
 
 
-# 役を判定するClass
 class RoleJudge:
+    """
+    役を判定
+
+    """
     def __init__(self):
         self.hand = []
         self.is_flush = False
@@ -23,11 +26,15 @@ class RoleJudge:
     def judge_straight(self, unique_number: List[int]) -> None:
         consecutive_num = 0
         for i in range(len(unique_number)-1):
-            if unique_number[i+1] - unique_number[i] == 1:
+            if unique_number[i] - unique_number[i+1] == 1:
                 consecutive_num += 1
             else:
+                if consecutive_num >= 4:
+                    break
                 consecutive_num = 0
+
         if consecutive_num >= 4:
+            self.role = "Straight"
             self.is_straight = True
 
     # straight flush
@@ -73,11 +80,13 @@ class RoleJudge:
             suit.append(hand[i].suit)
 
         for i in range(len(hand)):
-            number.append(hand[i].number)
+            number.append(hand[i].number(ace14=True))
         unique_number = sorted(list(set(number)))
+        # descending_unique_number = reversed(unique_number)
+        descending_unique_number = unique_number[::-1]
 
         self.judge_flush(suit, number)
-        self.judge_straight(unique_number)
+        self.judge_straight(descending_unique_number)
 
         number_collection = collections.Counter(number)
         number_of_same_number = self.how_many_same_numbers(number_collection)
@@ -222,7 +231,25 @@ def main():
     print("")
 
     #----------------------------------
-    # straight
+    # straight 1 2 3 4 5
+    #----------------------------------
+    straight12345 = []
+    straight12345.append(card.Card('C', 1))
+    straight12345.append(card.Card('S', 2))
+    straight12345.append(card.Card('D', 3))
+    straight12345.append(card.Card('H', 4))
+    straight12345.append(card.Card('D', 5))
+    straight12345.append(card.Card('H', 9))
+    straight12345.append(card.Card('C', 13))
+
+    print("-------------------------")
+    print("straight12345")
+    print("-------------------------")
+    straight12345_card = RoleJudge()
+    straight12345_card.judge(straight12345)
+    print("")
+    #----------------------------------
+    # straight 5 6 7 8 9
     #----------------------------------
     straight = []
     straight.append(card.Card('C', 1))
@@ -238,6 +265,24 @@ def main():
     print("-------------------------")
     straight_card = RoleJudge()
     straight_card.judge(straight)
+    print("")
+    #----------------------------------
+    # straight 10 11 12 13 1
+    #----------------------------------
+    straight10JQKA = []
+    straight10JQKA.append(card.Card('C', 1))
+    straight10JQKA.append(card.Card('S', 5))
+    straight10JQKA.append(card.Card('D', 6))
+    straight10JQKA.append(card.Card('H', 10))
+    straight10JQKA.append(card.Card('D', 11))
+    straight10JQKA.append(card.Card('H', 12))
+    straight10JQKA.append(card.Card('C', 13))
+
+    print("-------------------------")
+    print("straight10JQKA")
+    print("-------------------------")
+    straight10JQKA_card = RoleJudge()
+    straight10JQKA_card.judge(straight10JQKA)
     print("")
 
     #----------------------------------
