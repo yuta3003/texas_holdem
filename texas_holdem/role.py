@@ -4,21 +4,22 @@ from typing import List
 
 # 役を判定するClass
 class RoleJudge:
-    def __init__(self, hand):
-        self.hand = hand
+    def __init__(self):
+        self.hand = []
         self.is_flush = False
         self.is_straight = False
         self.role = "High Card"
 
     # flush
-    def judge_flush(self, mark: List[int], number: List[int]) -> None:
-        mark_collection = collections.Counter(mark)
-        max_mark_num = max(mark_collection.values())
-        if max_mark_num >= 5:
+    def judge_flush(self, suit: List[int], number: List[int]) -> None:
+        suit_collection = collections.Counter(suit)
+        number_of_max_suit = max(suit_collection.values())
+        if number_of_max_suit >= 5:
         # TODO: flush 同士の勝敗のために数字を取得する
             self.is_flush = True
 
     # straight
+    # TODO: 10, 11, 12, 13, 1の時もストレートと判定するように
     def judge_straight(self, unique_number: List[int]) -> None:
         consecutive_num = 0
         for i in range(len(unique_number)-1):
@@ -58,57 +59,224 @@ class RoleJudge:
     def judge_high(self):
         pass
 
-    def how_many_same_numbers(self, number):
-        pass
+    def how_many_same_numbers(self, number_collection):
+        number_of_same_number = max(number_collection.values())
+        return number_of_same_number
 
-    def role_judge(self):
-        mark = [i[0] for i in self.hand]
-        number = [int(j[1:]) for j in self.hand]  # => [1, 11, 10, 12, 13, 11, 5]
-        unique_number = sorted(list(set(number)))   # => [1, 5, 10, 11, 12, 13]
-        self.judge_flush(mark, number)
+    def judge(self, hand):
+        suit = []
+        number = []
+
+        # TODO: 内包表記に変更する
+        for i in range(len(hand)):
+            # TODO: カードのインスタンス変数にアクセスできないようにする
+            suit.append(hand[i].suit)
+
+        for i in range(len(hand)):
+            number.append(hand[i].number)
+        unique_number = sorted(list(set(number)))
+
+        self.judge_flush(suit, number)
         self.judge_straight(unique_number)
-        print("is_flush:", self.is_flush)
-        print("is_straight:", self.is_straight)
-        number_of_pairs = self.how_many_same_numbers(number)
 
+        number_collection = collections.Counter(number)
+        number_of_same_number = self.how_many_same_numbers(number_collection)
 
+        # pairs
+        if number_of_same_number == 2:
+            # TODO: 3ペアだった場合の2ペアの選択方法に問題あり
+            self.role = "a pair"
+            number_of_1pair = [k for k, v in number_collection.items() if v == 2][0]
+            try:
+                number_of_2pair = [k for k, v in number_collection.items() if v == 2][1]
+                self.role = "two pairs"
+                # TODO: 2ペアのキッカー1枚を取得
+            except IndexError:
+                # TODO: 1ペアのキッカー3枚を取得
+                pass
+        # three of kind or fullhouse
+        elif number_of_same_number == 3:
+            self.role = "three of kind"
+            number_of_3card = [k for k, v in number_collection.items() if v == 3][0]
 
-# haw many same numbers
+            try:
+                # TODO: 3カードが2組あった場合の3カードの選択方法に問題あり
+                number_of_fullhouse = [k for k, v in number_collection.items() if v >= 2][0]
+                self.role = "fullhouse"
+            except IndexError:
+                # TODO: キッカーの選択方法に問題あり
+                unique_number.remove(number_of_3card)
+                kicker_of_3card_1 = max(unique_number)
+                unique_number.remove(kicker_of_3card_1)
+                kicker_of_3card_2 = max(unique_number)
+                print("3カードのキッカー: ", kicker_of_3card_1, kicker_of_3card_2)
+        # four of kind
+        elif number_of_same_number == 4:
+            self.role = "four of kind"
+            number_of_4card = [k for k, v in number_collection.items() if v == 4][0]
+            unique_number.remove(number_of_4card)
+            kicker_of_4card = max(unique_number)
 
-# Python 3.9.5 (default, May 30 2021, 02:01:36)
-# [Clang 12.0.5 (clang-1205.0.22.9)] on darwin
-# Type "help", "copyright", "credits" or "license" for more information.
-# >>> number = [1, 11, 10, 12, 13, 11, 5]
-# >>> number
-# [1, 11, 10, 12, 13, 11, 5]
-# >>> import collections
-# >>> num_col = collections.Counter(number)
-# >>> num_col
-# Counter({11: 2, 1: 1, 10: 1, 12: 1, 13: 1, 5: 1})
-# >>> num_col_max = max(num_col.values())
-# >>> num_col_max
-# 2
-# >>> num_col_max_2 = max(num_col)
-# >>> num_col_max_2
-# 13
-# >>> exit()
-
+        # print("is_flush:", self.is_flush)
+        # print("is_straight:", self.is_straight)
+        # print("number_of_same_number:", number_of_same_number)
+        print(self.role)
 
 
 def main():
-    field_card = ['C10', 'C12', 'C13', 'D9', 'C5']
-    player1_card = ['C1', 'C11']
-    player2_card = ['D1', 'D10']
-    player1_hand = player1_card + field_card
-    player2_hand = player2_card + field_card
+    import card
 
-    print("player1")
-    player1 = RoleJudge(player1_hand)
-    player1.role_judge()
+    #----------------------------------
+    # A Pair
+    #----------------------------------
+    a_pair_card = []
+    a_pair_card.append(card.Card('C', 1))
+    a_pair_card.append(card.Card('C', 3))
+    a_pair_card.append(card.Card('H', 3))
+    a_pair_card.append(card.Card('S', 6))
+    a_pair_card.append(card.Card('H', 7))
+    a_pair_card.append(card.Card('D', 8))
+    a_pair_card.append(card.Card('S', 12))
 
-    print("player2")
-    player2 = RoleJudge(player2_hand)
-    player2.role_judge()
+    print("-------------------------")
+    print("a_pair_card")
+    print("-------------------------")
+    a_pair = RoleJudge()
+    a_pair.judge(a_pair_card)
+    print("")
+
+    #----------------------------------
+    # Two Pairs
+    #----------------------------------
+    two_pair_card = []
+    two_pair_card.append(card.Card('C', 1))
+    two_pair_card.append(card.Card('D', 1))
+    two_pair_card.append(card.Card('H', 3))
+    two_pair_card.append(card.Card('S', 3))
+    two_pair_card.append(card.Card('S', 6))
+    two_pair_card.append(card.Card('S', 12))
+    two_pair_card.append(card.Card('H', 12))
+
+    print("-------------------------")
+    print("two_pair_card")
+    print("-------------------------")
+    two_pair = RoleJudge()
+    two_pair.judge(two_pair_card)
+    print("")
+
+    #----------------------------------
+    # three of kind
+    #----------------------------------
+    three_of_card = []
+    three_of_card.append(card.Card('C', 1))
+    three_of_card.append(card.Card('D', 2))
+    three_of_card.append(card.Card('H', 2))
+    three_of_card.append(card.Card('S', 2))
+    three_of_card.append(card.Card('D', 3))
+    three_of_card.append(card.Card('C', 4))
+    three_of_card.append(card.Card('H', 12))
+
+    print("-------------------------")
+    print("three_of_kind")
+    print("-------------------------")
+    three_card = RoleJudge()
+    three_card.judge(three_of_card)
+    print("")
+
+    #----------------------------------
+    # four of kind
+    #----------------------------------
+    four_of_card = []
+    four_of_card.append(card.Card('C', 1))
+    four_of_card.append(card.Card('D', 2))
+    four_of_card.append(card.Card('H', 2))
+    four_of_card.append(card.Card('S', 2))
+    four_of_card.append(card.Card('C', 2))
+    four_of_card.append(card.Card('C', 4))
+    four_of_card.append(card.Card('H', 12))
+
+    print("-------------------------")
+    print("four_of_kind")
+    print("-------------------------")
+    four_card = RoleJudge()
+    four_card.judge(four_of_card)
+    print("")
+
+    #----------------------------------
+    # flush
+    #----------------------------------
+    flush = []
+    flush.append(card.Card('C', 1))
+    flush.append(card.Card('C', 2))
+    flush.append(card.Card('C', 5))
+    flush.append(card.Card('C', 7))
+    flush.append(card.Card('C', 8))
+    flush.append(card.Card('C', 9))
+    flush.append(card.Card('C', 13))
+
+    print("-------------------------")
+    print("flush")
+    print("-------------------------")
+    flush_card = RoleJudge()
+    flush_card.judge(flush)
+    print("")
+
+    #----------------------------------
+    # straight
+    #----------------------------------
+    straight = []
+    straight.append(card.Card('C', 1))
+    straight.append(card.Card('S', 5))
+    straight.append(card.Card('D', 6))
+    straight.append(card.Card('H', 7))
+    straight.append(card.Card('D', 8))
+    straight.append(card.Card('H', 9))
+    straight.append(card.Card('C', 13))
+
+    print("-------------------------")
+    print("straight")
+    print("-------------------------")
+    straight_card = RoleJudge()
+    straight_card.judge(straight)
+    print("")
+
+    #----------------------------------
+    # fullhouse
+    #----------------------------------
+    fullhouse = []
+    fullhouse.append(card.Card('C', 1))
+    fullhouse.append(card.Card('S', 1))
+    fullhouse.append(card.Card('D', 1))
+    fullhouse.append(card.Card('H', 7))
+    fullhouse.append(card.Card('D', 7))
+    fullhouse.append(card.Card('C', 7))
+    fullhouse.append(card.Card('C', 13))
+
+    print("-------------------------")
+    print("fullhouse")
+    print("-------------------------")
+    fullhouse_card = RoleJudge()
+    fullhouse_card.judge(fullhouse)
+    print("")
+
+    field_card = []
+    field_card.append(card.Card('C', 2))
+    field_card.append(card.Card('S', 2))
+    field_card.append(card.Card('C', 1))
+    field_card.append(card.Card('S', 1))
+    field_card.append(card.Card('S', 3))
+
+    player_card = []
+    player_card.append(card.Card('H', 5))
+    player_card.append(card.Card('S', 11))
+
+    player_hand = player_card + field_card
+
+    print("-------------------------")
+    print("player")
+    print("-------------------------")
+    player = RoleJudge()
+    player.judge(player_hand)
 
 
 if __name__ == '__main__':
