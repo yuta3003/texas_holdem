@@ -1,3 +1,4 @@
+import pytest
 from role import RoleJudge
 
 class RoleJudgeTest:

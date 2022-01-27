@@ -1,5 +1,5 @@
 import pytest
-from card import Card
+from texas_holdem import Card
 
 class CardTest:
     pass
