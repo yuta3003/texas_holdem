@@ -10,6 +10,8 @@ class Card:
         number = self.__number
         if ace14 and self.__number == 1:
             number = 14
+        elif not ace14 and self.__number == 1:
+            number = 1
         return number
 
     def show(self):
