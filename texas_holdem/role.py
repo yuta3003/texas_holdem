@@ -9,6 +9,7 @@ class RoleJudge:
     """
     def __init__(self):
         self.hand = []
+        self.number_collection = collections.Counter()
         self.role = 0
         """
         0: High Card
@@ -23,13 +24,44 @@ class RoleJudge:
         9: Royal Flush
         """
 
-    # flush
-    def judge_flush(self, suit: List[int], number: List[int]) -> None:
-        suit_collection = collections.Counter(suit)
-        number_of_max_suit = max(suit_collection.values())
-        if number_of_max_suit >= 5:
-        # TODO: flush 同士の勝敗のために数字を取得する
-            self.role = 5   # Flush
+    # a pair
+    # two pair
+    def judge_pair(self):
+        number_of_pair_list = [k for k, v in self.number_collection.items() if v == 2]
+        number_of_pair_list.sort(reverse=True)
+        try:    # 2ペア
+            number_of_2pair = number_of_pair_list[1]
+            kicker_of_2pair_list = [k for k, v in self.number_collection.items() if v == 1]
+            kicker_of_2pair_list.sort(reverse=True)
+            kicker_of_2pair = kicker_of_2pair_list[0]
+            print(kicker_of_2pair)
+            self.role = 2   # Two Pair
+        except IndexError:  # 1ペア
+            number_of_1pair = number_of_pair_list[0]
+            kicker_of_1pair_list = [k for k, v in self.number_collection.items() if v == 1]
+            kicker_of_1pair_list.sort(reverse=True)
+            kicker_of_1pair1 = kicker_of_1pair_list[0]
+            kicker_of_1pair2 = kicker_of_1pair_list[1]
+            kicker_of_1pair3 = kicker_of_1pair_list[2]
+            print(kicker_of_1pair1, kicker_of_1pair2, kicker_of_1pair3)
+            self.role = 1   # A Pair
+
+    # three of a kind
+    def judge_three_of_kind(self, unique_number: List[int]):
+        number_of_3card_list = [k for k, v in self.number_collection.items() if v == 3]
+        number_of_3card_list.sort(reverse=True)
+        number_of_3card = number_of_3card_list[0]
+        del self.number_collection[number_of_3card]
+        try:    # Full House
+            number_of_fullhouse_list = [k for k, v in self.number_collection.items() if v >= 2]
+            self.judge_full_house(number_of_fullhouse_list)
+        except IndexError:
+            unique_number.remove(number_of_3card)
+            kicker_of_3card_1 = max(unique_number)
+            unique_number.remove(kicker_of_3card_1)
+            kicker_of_3card_2 = max(unique_number)
+            self.role = 3   # Three of a Kind
+            print("3カードのキッカー: ", kicker_of_3card_1, kicker_of_3card_2)
 
     # straight
     def judge_straight(self, unique_number: List[int]) -> int:
@@ -55,34 +87,35 @@ class RoleJudge:
             max_number = 14
             return max_number
 
-    # straight flush
-    def judge_straight_flush(self):
-        pass
-
-    # four of a kind
-    def judge_four_of_kind(self):
-        pass
-
-    # three of a kind
-    def judge_three_of_kind(self):
-        pass
+    # flush
+    def judge_flush(self, suit: List[int], number: List[int]) -> None:
+        suit_collection = collections.Counter(suit)
+        number_of_max_suit = max(suit_collection.values())
+        if number_of_max_suit >= 5:
+        # TODO: flush 同士の勝敗のために数字を取得する
+            self.role = 5   # Flush
 
     # full house
-    def judge_full_house(self):
-        pass
+    def judge_full_house(self, number_of_fullhouse_list):
+        number_of_fullhouse_list.sort(reverse=True)
+        number_of_fullhouse = number_of_fullhouse_list[0]
+        self.role = 6   # Full House
+        print(number_of_fullhouse)
 
-    # a pair
-    # two pair
-    def judge_pair(self):
-        pass
+    # four of a kind
+    def judge_four_of_kind(self, unique_number: List[int]):
+        number_of_4card = [k for k, v in self.number_collection.items() if v == 4][0]
+        unique_number.remove(number_of_4card)
+        kicker_of_4card = max(unique_number)
+        self.role = 7   # Four of a Kind
+
+    # straight flush
+    def judge_straight_flush(self):
+        self.role = 8
 
     # royal flush
     def judge_royal_flush(self):
-        pass
-
-    # high card
-    def judge_high(self):
-        pass
+        self.role = 9
 
     def how_many_same_numbers(self, number_collection):
         number_of_same_number = max(number_collection.values())
@@ -105,57 +138,19 @@ class RoleJudge:
         self.judge_flush(suit, number)
         self.judge_straight(descending_unique_number)
 
-        number_collection = collections.Counter(number)
-        number_of_same_number = self.how_many_same_numbers(number_collection)
-        print(number_collection)
+        self.number_collection = collections.Counter(number)
+        number_of_same_number = self.how_many_same_numbers(self.number_collection)
+        print(self.number_collection)
 
-        # pairs
-        if number_of_same_number == 2:
-            number_of_pair_list = [k for k, v in number_collection.items() if v == 2]
-            number_of_pair_list.sort(reverse=True)
-            try:    # 2ペア
-                number_of_2pair = number_of_pair_list[1]
-                kicker_of_2pair_list = [k for k, v in number_collection.items() if v == 1]
-                kicker_of_2pair_list.sort(reverse=True)
-                kicker_of_2pair = kicker_of_2pair_list[0]
-                print(kicker_of_2pair)
-                self.role = 2   # Two Pair
-            except IndexError:  # 1ペア
-                number_of_1pair = number_of_pair_list[0]
-                kicker_of_1pair_list = [k for k, v in number_collection.items() if v == 1]
-                kicker_of_1pair_list.sort(reverse=True)
-                kicker_of_1pair1 = kicker_of_1pair_list[0]
-                kicker_of_1pair2 = kicker_of_1pair_list[1]
-                kicker_of_1pair3 = kicker_of_1pair_list[2]
-                print(kicker_of_1pair1, kicker_of_1pair2, kicker_of_1pair3)
-                self.role = 1   # A Pair
+        if number_of_same_number == 2:  # Pair
+            self.judge_pair()
+        elif number_of_same_number == 3:    # three of kind or fullhouse
+            self.judge_three_of_kind(unique_number)
+        elif number_of_same_number == 4:    # four of kind
+            self.judge_four_of_kind(unique_number)
 
-        # three of kind or fullhouse
-        elif number_of_same_number == 3:
-            self.role = 3   # Three of a Kind
-            number_of_3card_list = [k for k, v in number_collection.items() if v == 3]
-            number_of_3card_list.sort(reverse=True)
-            number_of_3card = number_of_3card_list[0]
-            del number_collection[number_of_3card]
-            try:
-                number_of_fullhouse_list = [k for k, v in number_collection.items() if v >= 2]
-                number_of_fullhouse_list.sort(reverse=True)
-                number_of_fullhouse = number_of_fullhouse_list[0]
-                self.role = 6   # Full House
-                print(number_of_fullhouse)
-            except IndexError:
-                unique_number.remove(number_of_3card)
-                kicker_of_3card_1 = max(unique_number)
-                unique_number.remove(kicker_of_3card_1)
-                kicker_of_3card_2 = max(unique_number)
-                print("3カードのキッカー: ", kicker_of_3card_1, kicker_of_3card_2)
+        print(self.role)
 
-        # four of kind
-        elif number_of_same_number == 4:
-            self.role = 7   # Four of a Kind
-            number_of_4card = [k for k, v in number_collection.items() if v == 4][0]
-            unique_number.remove(number_of_4card)
-            kicker_of_4card = max(unique_number)
 
 
 def main():
