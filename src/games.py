@@ -3,6 +3,7 @@ from src import field
 from src import player
 from src import role
 
+
 class Game:
     """
     メインゲーム
@@ -54,7 +55,6 @@ class Game:
             hand = self.players[i].hand + self.game_field.community_card
             self.game_role.judge(hand)
 
-
     # ゲーム全体の進行
     def progress(self):
         self.deal()
@@ -65,9 +65,11 @@ class Game:
         self.showdown()
         self.role_judge()
 
+
 def main():
     game = Game()
     game.progress()
+
 
 if __name__ == '__main__':
     main()

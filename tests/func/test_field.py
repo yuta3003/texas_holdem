@@ -1,15 +1,20 @@
 import pytest
-from src import field
+from src import (
+    deck,
+    field,
+)
 
+game_deck = deck.Deck()
+game_field = field.Field()
 
 def test_flop():
-    pass
+    game_field.flop(game_deck)
 
 def test_turn():
-    pass
+    game_field.turn(game_deck)
 
 def test_river():
-    pass
+    game_field.river(game_deck)
 
 def test_show_card():
-    pass
+    game_field.show_card()

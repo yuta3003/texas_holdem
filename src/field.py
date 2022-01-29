@@ -1,5 +1,6 @@
 from src import deck
 
+
 class Field:
     def __init__(self):
         self.community_card = []
@@ -35,6 +36,7 @@ def main():
     field.river(game_deck)
     field.show_card()
     print("----- field ---- river ------")
+
 
 if __name__ == '__main__':
     main()

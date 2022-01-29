@@ -1,5 +1,4 @@
 import random
-
 from src import card
 
 
@@ -28,6 +27,7 @@ class Deck:
 def main():
     deck = Deck()
     deck.show()
+
 
 if __name__ == '__main__':
     main()

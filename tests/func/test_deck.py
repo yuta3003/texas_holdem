@@ -1,14 +1,20 @@
 import pytest
-from src import deck
+from src import(
+    deck,
+)
+
+
+game_deck = deck.Deck()
+
 
 def test_build():
-    pass
+    game_deck.build()
 
 def test_shuffle():
-    pass
+    game_deck.shuffle()
 
 def test_show():
-    pass
+    game_deck.show()
 
 def test_draw_card():
-    pass
+    game_deck.draw_card()
