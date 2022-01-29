@@ -1,5 +1,8 @@
 import collections
-from typing import List
+from typing import (
+    List,
+    Tuple,
+)
 
 
 class RoleJudge:
@@ -10,7 +13,7 @@ class RoleJudge:
     def __init__(self):
         self.hand = []
         self.number_collection = collections.Counter()
-        self.role = 0
+        self.__role = 0
         """
         0: High Card
         1: A Pair
@@ -24,47 +27,70 @@ class RoleJudge:
         9: Royal Flush
         """
 
+    def get_role(self):
+        return self.__role
+
     # a pair
     # two pair
-    def judge_pair(self):
+    def judge_pair(self) -> Tuple[int, List[int]]:
         number_of_pair_list = [k for k, v in self.number_collection.items() if v == 2]
         number_of_pair_list.sort(reverse=True)
         try:    # 2ペア
             number_of_2pair = number_of_pair_list[1]
             kicker_of_2pair_list = [k for k, v in self.number_collection.items() if v == 1]
             kicker_of_2pair_list.sort(reverse=True)
-            kicker_of_2pair = kicker_of_2pair_list[0]
+            kicker_of_2pair = []
+            kicker_of_2pair.append(kicker_of_2pair_list[0])
             print(kicker_of_2pair)
-            self.role = 2   # Two Pair
+            self.__role = 2   # Two Pair
+            return number_of_2pair, kicker_of_2pair
         except IndexError:  # 1ペア
             number_of_1pair = number_of_pair_list[0]
             kicker_of_1pair_list = [k for k, v in self.number_collection.items() if v == 1]
             kicker_of_1pair_list.sort(reverse=True)
-            kicker_of_1pair1 = kicker_of_1pair_list[0]
-            kicker_of_1pair2 = kicker_of_1pair_list[1]
-            kicker_of_1pair3 = kicker_of_1pair_list[2]
-            print(kicker_of_1pair1, kicker_of_1pair2, kicker_of_1pair3)
-            self.role = 1   # A Pair
+            kicker_of_1pair = []
+            kicker_of_1pair.append(kicker_of_1pair_list[0])
+            kicker_of_1pair.append(kicker_of_1pair_list[1])
+            kicker_of_1pair.append(kicker_of_1pair_list[2])
+            print(kicker_of_1pair)
+            self.__role = 1   # A Pair
+            return number_of_1pair, kicker_of_1pair
 
     # three of a kind
-    def judge_three_of_kind(self, unique_number: List[int]):
+    def judge_three_of_kind(self, unique_number: List[int]) -> Tuple[int, List[int]]:
         number_of_3card_list = [k for k, v in self.number_collection.items() if v == 3]
         number_of_3card_list.sort(reverse=True)
         number_of_3card = number_of_3card_list[0]
         del self.number_collection[number_of_3card]
         try:    # Full House
             number_of_fullhouse_list = [k for k, v in self.number_collection.items() if v >= 2]
-            self.judge_full_house(number_of_fullhouse_list)
+            kicker_of_fullhouse = []
+            kicker_of_fullhouse.append(self.judge_full_house(number_of_fullhouse_list))
+            return number_of_3card, kicker_of_fullhouse
+
         except IndexError:
+            kicker_of_3card = []
             unique_number.remove(number_of_3card)
             kicker_of_3card_1 = max(unique_number)
             unique_number.remove(kicker_of_3card_1)
             kicker_of_3card_2 = max(unique_number)
-            self.role = 3   # Three of a Kind
-            print("3カードのキッカー: ", kicker_of_3card_1, kicker_of_3card_2)
+
+            kicker_of_3card.append(kicker_of_3card_1)
+            kicker_of_3card.append(kicker_of_3card_2)
+            self.__role = 3   # Three of a Kind
+            return number_of_3card, kicker_of_3card
 
     # straight
     def judge_straight(self, unique_number: List[int]) -> int:
+        """
+        ストレートかどうかを判断する
+        parameters
+        ----------
+
+        return
+        ------
+        ストレートの最大値を返す
+        """
         consecutive_num = 0
         max_number = 0
         for i in range(len(unique_number)-1):
@@ -77,13 +103,13 @@ class RoleJudge:
                 consecutive_num = 0
 
         if consecutive_num >= 4:
-            self.role = 4   # Straight
+            self.__role = 4   # Straight
             return max_number
 
         comparison_list = [14, 2, 3, 4, 5]
-        number_of_common_items = len(list(set(unique_number)&set(comparison_list)))
+        number_of_common_items = len(list(set(unique_number) & set(comparison_list)))
         if number_of_common_items >= 5:
-            self.role = 4   # Straight
+            self.__role = 4   # Straight
             max_number = 14
             return max_number
 
@@ -92,32 +118,37 @@ class RoleJudge:
         suit_collection = collections.Counter(suit)
         number_of_max_suit = max(suit_collection.values())
         if number_of_max_suit >= 5:
-        # TODO: flush 同士の勝敗のために数字を取得する
-            self.role = 5   # Flush
+            # TODO: flush 同士の勝敗のために数字を取得する
+            self.__role = 5   # Flush
 
     # full house
-    def judge_full_house(self, number_of_fullhouse_list):
+    def judge_full_house(self, number_of_fullhouse_list) -> int:
         number_of_fullhouse_list.sort(reverse=True)
         number_of_fullhouse = number_of_fullhouse_list[0]
-        self.role = 6   # Full House
-        print(number_of_fullhouse)
+        self.__role = 6   # Full House
+        return number_of_fullhouse
 
     # four of a kind
     def judge_four_of_kind(self, unique_number: List[int]):
         number_of_4card = [k for k, v in self.number_collection.items() if v == 4][0]
         unique_number.remove(number_of_4card)
         kicker_of_4card = max(unique_number)
-        self.role = 7   # Four of a Kind
+        self.__role = 7   # Four of a Kind
+        return number_of_4card, kicker_of_4card
 
     # straight flush
     def judge_straight_flush(self):
-        self.role = 8
+        self.__role = 8
 
     # royal flush
     def judge_royal_flush(self):
-        self.role = 9
+        self.__role = 9
 
-    def how_many_same_numbers(self, number_collection):
+    def how_many_same_numbers(self, number_collection) -> int:
+        """
+        同じカードが何枚あるのかを判断
+        複数ペアある場合、最大値を返す
+        """
         number_of_same_number = max(number_collection.values())
         return number_of_same_number
 
@@ -149,16 +180,14 @@ class RoleJudge:
         elif number_of_same_number == 4:    # four of kind
             self.judge_four_of_kind(unique_number)
 
-        print(self.role)
-
-
 
 def main():
     import card
-
-    #----------------------------------
-    # A Pair
-    #----------------------------------
+    """
+    ----------------------------------
+     A Pair
+    ----------------------------------
+    """
     a_pair_card = []
     a_pair_card.append(card.Card('C', 1))
     a_pair_card.append(card.Card('C', 3))
@@ -175,9 +204,11 @@ def main():
     a_pair.judge(a_pair_card)
     print("")
 
-    #----------------------------------
-    # Two Pairs
-    #----------------------------------
+    """
+    ----------------------------------
+     Two Pairs
+    ----------------------------------
+    """
     two_pair_card = []
     two_pair_card.append(card.Card('C', 1))
     two_pair_card.append(card.Card('D', 1))
@@ -194,9 +225,11 @@ def main():
     two_pair.judge(two_pair_card)
     print("")
 
-    #----------------------------------
-    # Three Pairs
-    #----------------------------------
+    """
+    ----------------------------------
+     Three Pairs
+    ----------------------------------
+    """
     three_pair_card = []
     three_pair_card.append(card.Card('C', 1))
     three_pair_card.append(card.Card('D', 1))
@@ -212,9 +245,12 @@ def main():
     three_pair = RoleJudge()
     three_pair.judge(three_pair_card)
     print("")
-    #----------------------------------
-    # three of kind
-    #----------------------------------
+
+    """
+    ----------------------------------
+     three of kind
+    ----------------------------------
+    """
     three_of_card = []
     three_of_card.append(card.Card('C', 1))
     three_of_card.append(card.Card('D', 2))
@@ -231,9 +267,11 @@ def main():
     three_card.judge(three_of_card)
     print("")
 
-    #----------------------------------
-    # four of kind
-    #----------------------------------
+    """
+    ----------------------------------
+     four of kind
+    ----------------------------------
+    """
     four_of_card = []
     four_of_card.append(card.Card('C', 1))
     four_of_card.append(card.Card('D', 2))
@@ -250,9 +288,11 @@ def main():
     four_card.judge(four_of_card)
     print("")
 
-    #----------------------------------
-    # flush
-    #----------------------------------
+    """
+    ----------------------------------
+     flush
+    ----------------------------------
+    """
     flush = []
     flush.append(card.Card('C', 1))
     flush.append(card.Card('C', 2))
@@ -269,9 +309,11 @@ def main():
     flush_card.judge(flush)
     print("")
 
-    #----------------------------------
-    # straight 1 2 3 4 5
-    #----------------------------------
+    """
+    ----------------------------------
+     straight 1 2 3 4 5
+    ----------------------------------
+    """
     straight12345 = []
     straight12345.append(card.Card('C', 1))
     straight12345.append(card.Card('S', 2))
@@ -287,9 +329,12 @@ def main():
     straight12345_card = RoleJudge()
     straight12345_card.judge(straight12345)
     print("")
-    #----------------------------------
-    # straight 5 6 7 8 9
-    #----------------------------------
+
+    """
+    ----------------------------------
+     straight 5 6 7 8 9
+    ----------------------------------
+    """
     straight = []
     straight.append(card.Card('C', 1))
     straight.append(card.Card('S', 5))
@@ -305,9 +350,12 @@ def main():
     straight_card = RoleJudge()
     straight_card.judge(straight)
     print("")
-    #----------------------------------
-    # straight 10 11 12 13 1
-    #----------------------------------
+
+    """
+    ----------------------------------
+     straight 10 11 12 13 1
+    ----------------------------------
+    """
     straight10JQKA = []
     straight10JQKA.append(card.Card('C', 1))
     straight10JQKA.append(card.Card('S', 5))
@@ -324,9 +372,11 @@ def main():
     straight10JQKA_card.judge(straight10JQKA)
     print("")
 
-    #----------------------------------
-    # fullhouse
-    #----------------------------------
+    """
+    ----------------------------------
+     fullhouse
+    ----------------------------------
+    """
     fullhouse = []
     fullhouse.append(card.Card('C', 1))
     fullhouse.append(card.Card('S', 1))

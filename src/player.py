@@ -1,5 +1,6 @@
 from src import deck
 
+
 class Player:
     def __init__(self, name):
         self.name = name
@@ -30,6 +31,7 @@ def main():
     bob.draw(game_deck)
     bob.show_hand()
     print("----- bob ----------")
+
 
 if __name__ == '__main__':
     main()
