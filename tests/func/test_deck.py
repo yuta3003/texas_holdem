@@ -1,5 +1,14 @@
 import pytest
-from deck import Deck
+from src import deck
 
-class DeckTest:
+def test_build():
+    pass
+
+def test_shuffle():
+    pass
+
+def test_show():
+    pass
+
+def test_draw_card():
     pass

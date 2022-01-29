@@ -1,6 +1,0 @@
-README.md
-setup.py
-texas_holdem.egg-info/PKG-INFO
-texas_holdem.egg-info/SOURCES.txt
-texas_holdem.egg-info/dependency_links.txt
-texas_holdem.egg-info/top_level.txt

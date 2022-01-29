@@ -1,7 +1,7 @@
-import deck
-import field
-import player
-import role
+from src import deck
+from src import field
+from src import player
+from src import role
 
 class Game:
     """

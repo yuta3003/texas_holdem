@@ -1,4 +1,4 @@
-import deck
+from src import deck
 
 class Player:
     def __init__(self, name):
