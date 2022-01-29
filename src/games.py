@@ -1,9 +1,18 @@
-import deck
-import field
-import player
-import role
+from src import deck
+from src import field
+from src import player
+from src import role
 
 class Game:
+    """
+    メインゲーム
+
+    Examples
+    --------
+    >>> game = Game()
+    >>> game.progress() # ゲームスタート
+    """
+
     def __init__(self, number_of_players=2):
         self.number_of_players = number_of_players
         self.players = []
