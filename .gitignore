@@ -1,5 +1,17 @@
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+
 # Environments
 .env
 .venv
 venv/
-__pycache__/
+
+# Unit test / coverage reports
+.pytest_cache/

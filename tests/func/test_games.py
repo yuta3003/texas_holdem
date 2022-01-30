@@ -1,28 +1,37 @@
 import pytest
 
-from src import games
+from src import (
+    games,
+)
 
 
 def test_deal():
-    pass
+    assert True
+
 
 def test_preflop():
-    pass
+    assert True
+
 
 def test_flop():
-    pass
+    assert True
+
 
 def test_turn():
-    pass
+    assert True
+
 
 def test_river():
-    pass
+    assert True
+
 
 def test_showdown():
-    pass
+    assert True
+
 
 def test_role_judge():
-    pass
+    assert True
+
 
 def test_progress():
-    pass
+    assert True
