@@ -1,5 +1,7 @@
 import collections
+
 import pytest
+
 from src import (
     card,
     role,
@@ -18,9 +20,9 @@ def test_judge_pair():
 
     a_pair = role.RoleJudge()
     a_pair.judge(a_pair_card)
-    a_pair_role = a_pair.get_role()
-
+    a_pair_role = a_pair.role()
     assert a_pair_role == 1
+
 
     """
     ----------------------------------
@@ -38,7 +40,7 @@ def test_judge_pair():
 
     two_pair = role.RoleJudge()
     two_pair.judge(two_pair_card)
-    two_pair_role = two_pair.get_role()
+    two_pair_role = two_pair.role()
 
     assert two_pair_role == 2
 
@@ -58,9 +60,10 @@ def test_judge_pair():
 
     three_pair = role.RoleJudge()
     three_pair.judge(three_pair_card)
-    three_pair_role = three_pair.get_role()
+    three_pair_role = three_pair.role()
 
     assert three_pair_role == 2
+
 
 def test_judge_three_of_kind():
     """
@@ -79,9 +82,10 @@ def test_judge_three_of_kind():
 
     three_card = role.RoleJudge()
     three_card.judge(three_of_card)
-    three_card_role = three_card.get_role()
+    three_card_role = three_card.role()
 
     assert three_card_role == 3
+
 
 def test_judge_straight():
     """
@@ -100,7 +104,7 @@ def test_judge_straight():
 
     straight12345_card = role.RoleJudge()
     straight12345_card.judge(straight12345)
-    straight12345_role = straight12345_card.get_role()
+    straight12345_role = straight12345_card.role()
 
     assert straight12345_role == 4
 
@@ -120,7 +124,7 @@ def test_judge_straight():
 
     straight_card = role.RoleJudge()
     straight_card.judge(straight)
-    straight_role = straight_card.get_role()
+    straight_role = straight_card.role()
 
     assert straight_role == 4
 
@@ -140,9 +144,10 @@ def test_judge_straight():
 
     straight10JQKA_card = role.RoleJudge()
     straight10JQKA_card.judge(straight10JQKA)
-    straight10JQKA_role = straight10JQKA_card.get_role()
+    straight10JQKA_role = straight10JQKA_card.role()
 
     assert straight10JQKA_role == 4
+
 
 def test_judge_flush():
     """
@@ -161,9 +166,10 @@ def test_judge_flush():
 
     flush_card = role.RoleJudge()
     flush_card.judge(flush)
-    flush_role = flush_card.get_role()
+    flush_role = flush_card.role()
 
     assert flush_role == 5
+
 
 def test_judge_full_house():
     """
@@ -182,9 +188,10 @@ def test_judge_full_house():
 
     fullhouse_card = role.RoleJudge()
     fullhouse_card.judge(fullhouse)
-    fullhouse_role = fullhouse_card.get_role()
+    fullhouse_role = fullhouse_card.role()
 
     assert fullhouse_role == 6
+
 
 def test_judge_four_of_kind():
     """
@@ -203,15 +210,36 @@ def test_judge_four_of_kind():
 
     four_card = role.RoleJudge()
     four_card.judge(four_of_card)
-    four_card_role = four_card.get_role()
+    four_card_role = four_card.role()
 
     assert four_card_role == 7
 
+
 def test_judge_straight_flush():
-    pass
+    """
+    ----------------------------------
+     straight flush
+    ----------------------------------
+    """
+    straightflush = []
+    straightflush.append(card.Card('H', 1))
+    straightflush.append(card.Card('C', 2))
+    straightflush.append(card.Card('C', 6))
+    straightflush.append(card.Card('C', 7))
+    straightflush.append(card.Card('C', 8))
+    straightflush.append(card.Card('C', 9))
+    straightflush.append(card.Card('C', 10))
+
+    straightflush_card = role.RoleJudge()
+    straightflush_card.judge(straightflush)
+    straightflush_role = straightflush_card.role()
+
+    assert straightflush_role == 8
+
 
 def test_judge_royal_flush():
     pass
+
 
 def test_how_many_same_numbers():
     """
@@ -253,6 +281,7 @@ def test_how_many_same_numbers():
     number = [1, 2, 3, 4, 4, 4, 4]
     number_collection = collections.Counter(number)
     same_number4.how_many_same_numbers(number_collection)
+
 
 def test_judge():
     pass

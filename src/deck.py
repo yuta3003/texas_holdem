@@ -1,4 +1,5 @@
 import random
+
 from src import card
 
 
@@ -7,6 +8,9 @@ class Deck:
         self.__cards = []
         self.build()
         self.shuffle()
+
+    def cards(self):
+        return self.__cards
 
     def build(self):
         for i in ["C", "D", "H", "S"]:
