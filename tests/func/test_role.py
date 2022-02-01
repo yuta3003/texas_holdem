@@ -21,8 +21,8 @@ def test_judge_pair():
     a_pair = role.RoleJudge()
     a_pair.judge(a_pair_card)
     a_pair_role = a_pair.role()
-
     assert a_pair_role == 1
+
 
     """
     ----------------------------------
