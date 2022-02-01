@@ -16,6 +16,7 @@ class RoleJudge:
     def __init__(self):
         self.__hand = []
         self.number_collection = collections.Counter()
+        self.suit_collection = collections.Counter()
         self.is_flush = False
         self.is_straight = False
         self.__role = 0
@@ -49,7 +50,7 @@ class RoleJudge:
             kicker_of_2pair = []
             kicker_of_2pair.append(kicker_of_2pair_list[0])
             self.__role = 2   # Two Pair
-            self.__hand.clear()
+            # self.__hand.clear()
             self.__hand.append(card.Card(number_of_2pair1))
             self.__hand.append(card.Card(number_of_2pair1))
             self.__hand.append(card.Card(number_of_2pair2))
@@ -60,7 +61,7 @@ class RoleJudge:
             kicker_of_1pair_list = [k for k, v in self.number_collection.items() if v == 1]
             kicker_of_1pair_list.sort(reverse=True)
             self.__role = 1   # A Pair
-            self.__hand.clear()
+            # self.__hand.clear()
             self.__hand.append(card.Card(number_of_1pair))
             self.__hand.append(card.Card(number_of_1pair))
             self.__hand.append(card.Card(kicker_of_1pair_list[0]))
@@ -76,12 +77,12 @@ class RoleJudge:
             number_of_fullhouse_list = [k for k, v in self.number_collection.items() if v >= 2]
             kicker_of_fullhouse = []
             kicker_of_fullhouse.append(self.judge_full_house(number_of_fullhouse_list))
-            self.__hand.clear()
-            self.__hand.append(number_of_3card)
-            self.__hand.append(number_of_3card)
-            self.__hand.append(number_of_3card)
-            self.__hand.append(kicker_of_fullhouse)
-            self.__hand.append(kicker_of_fullhouse)
+            # self.__hand.clear()
+            self.__hand.append(card.Card(number_of_3card))
+            self.__hand.append(card.Card(number_of_3card))
+            self.__hand.append(card.Card(number_of_3card))
+            self.__hand.append(card.Card(kicker_of_fullhouse))
+            self.__hand.append(card.Card(kicker_of_fullhouse))
         except IndexError:
             unique_number.remove(number_of_3card)
             kicker_of_3card_1 = max(unique_number)
@@ -89,23 +90,14 @@ class RoleJudge:
             kicker_of_3card_2 = max(unique_number)
 
             self.__role = 3   # Three of a Kind
-            self.__hand.clear()
-            self.__hand.append(number_of_3card)
-            self.__hand.append(number_of_3card)
-            self.__hand.append(number_of_3card)
-            self.__hand.append(kicker_of_3card_1)
-            self.__hand.append(kicker_of_3card_2)
+            # self.__hand.clear()
+            self.__hand.append(card.Card(number_of_3card))
+            self.__hand.append(card.Card(number_of_3card))
+            self.__hand.append(card.Card(number_of_3card))
+            self.__hand.append(card.Card(kicker_of_3card_1))
+            self.__hand.append(card.Card(kicker_of_3card_2))
 
     def judge_straight(self, unique_number: List[int]):
-        """
-        ストレートかどうかを判断する
-        parameters
-        ----------
-
-        return
-        ------
-        ストレートの最大値を返す
-        """
         consecutive_num = 0
         for i in range(len(unique_number)-1):
             self.__hand.append(unique_number[i])
@@ -117,7 +109,7 @@ class RoleJudge:
                 if consecutive_num >= 4:
                     break
                 consecutive_num = 0
-                self.__hand.clear()
+                # self.__hand.clear()
 
         if consecutive_num >= 4:
             self.is_straight = True
@@ -125,19 +117,21 @@ class RoleJudge:
 
         comparison_list = [14, 2, 3, 4, 5]
         number_of_common_items = len(list(set(unique_number) & set(comparison_list)))
+
         if number_of_common_items >= 5:
             self.is_straight = True
             self.__role = 4   # Straight
-            self.__hand.clear()
-            self.__hand.append(14)
-            self.__hand.append(2)
-            self.__hand.append(3)
-            self.__hand.append(4)
-            self.__hand.append(5)
+            # self.__hand.clear()
+            self.__hand.append(card.Card(14))
+            self.__hand.append(card.Card(2))
+            self.__hand.append(card.Card(3))
+            self.__hand.append(card.Card(4))
+            self.__hand.append(card.Card(5))
 
-    def judge_flush(self, suit: List[int], number: List[int]):
-        suit_collection = collections.Counter(suit)
-        number_of_max_suit = max(suit_collection.values())
+    def judge_flush(self, number: List[int]):
+        number_of_max_suit = max(self.suit_collection.values())
+        flush_number_list = [k for k, v in self.suit_collection.items() if v == number_of_max_suit]
+        print(self.suit_collection['C'])
         if number_of_max_suit >= 5:
             # TODO: flush 同士の勝敗のために数字を取得する
             self.is_flush = True
@@ -154,11 +148,11 @@ class RoleJudge:
         unique_number.remove(number_of_4card)
         kicker_of_4card = max(unique_number)
         self.__role = 7   # Four of a Kind
-        self.__hand.append(number_of_4card)
-        self.__hand.append(number_of_4card)
-        self.__hand.append(number_of_4card)
-        self.__hand.append(number_of_4card)
-        self.__hand.append(kicker_of_4card)
+        self.__hand.append(card.Card(number_of_4card))
+        self.__hand.append(card.Card(number_of_4card))
+        self.__hand.append(card.Card(number_of_4card))
+        self.__hand.append(card.Card(number_of_4card))
+        self.__hand.append(card.Card(kicker_of_4card))
 
     def judge_straight_flush(self, unique_number: List[int]):
         self.judge_straight(unique_number)   # self.__hand設定のため
@@ -166,11 +160,11 @@ class RoleJudge:
 
     def judge_royal_flush(self):
         self.__role = 9
-        self.__hand.append(14)
-        self.__hand.append(13)
-        self.__hand.append(12)
-        self.__hand.append(11)
-        self.__hand.append(10)
+        self.__hand.append(card.Card(14))
+        self.__hand.append(card.Card(13))
+        self.__hand.append(card.Card(12))
+        self.__hand.append(card.Card(11))
+        self.__hand.append(card.Card(10))
 
     def how_many_same_numbers(self, number_collection) -> int:
         """
@@ -200,6 +194,8 @@ class RoleJudge:
         self.number_collection = collections.Counter(number)
         number_of_same_number = self.how_many_same_numbers(self.number_collection)
 
+        self.suit_collection = collections.Counter(suit)
+
         if number_of_same_number == 2:  # Pair
             self.judge_pair()
         elif number_of_same_number == 3:    # three of kind or fullhouse
@@ -207,14 +203,49 @@ class RoleJudge:
         elif number_of_same_number == 4:    # four of kind
             self.judge_four_of_kind(unique_number)
 
-        self.judge_flush(suit, number)
+        self.judge_flush(number)
         self.judge_straight(descending_unique_number)
         if self.is_flush & self.is_straight:
             self.judge_straight_flush(descending_unique_number)
 
 
 def main():
-    pass
+    import card
+
+    a_pair_card = []
+    a_pair_card.append(card.Card('C', 1))
+    a_pair_card.append(card.Card('C', 3))
+    a_pair_card.append(card.Card('H', 3))
+    a_pair_card.append(card.Card('S', 6))
+    a_pair_card.append(card.Card('H', 7))
+    a_pair_card.append(card.Card('D', 8))
+    a_pair_card.append(card.Card('S', 12))
+
+    a_pair = RoleJudge()
+    a_pair.judge(a_pair_card)
+    a_pair_role = a_pair.role()
+    a_pair_hand = a_pair.hand()
+
+    # print(a_pair_role)
+    # print(a_pair_hand)
+
+    """
+    ----------------------------------
+     flush
+    ----------------------------------
+    """
+    flush = []
+    flush.append(card.Card('C', 1))
+    flush.append(card.Card('C', 2))
+    flush.append(card.Card('C', 5))
+    flush.append(card.Card('C', 7))
+    flush.append(card.Card('C', 8))
+    flush.append(card.Card('C', 9))
+    flush.append(card.Card('C', 13))
+
+    flush_card = RoleJudge()
+    flush_card.judge(flush)
+    flush_role = flush_card.role()
 
 
 if __name__ == '__main__':
