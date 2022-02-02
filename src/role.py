@@ -96,13 +96,18 @@ class RoleJudge:
             self.is_straight = True
             self.__role = 4   # Straight
 
-    def judge_flush(self, number: List[int]):
+    def judge_flush(self, number: List[int], hand: List[int]):
         number_of_max_suit = max(self.suit_collection.values())
-        flush_number_list = [k for k, v in self.suit_collection.items() if v == number_of_max_suit]
+        flush_mark = [k for k, v in self.suit_collection.items() if v == number_of_max_suit][0]
         if number_of_max_suit >= 5:
-            # TODO: flush 同士の勝敗のために数字を取得する
             self.is_flush = True
             self.__role = 5   # Flush
+
+            for i in range(len(hand)):
+                if len(self.__hand) == 5:
+                    break
+                if hand[i].suit() == flush_mark:
+                    self.__hand.append(hand[i])
 
     def judge_full_house(self, number_of_fullhouse_list) -> int:
         number_of_fullhouse_list.sort(reverse=True)
@@ -138,9 +143,7 @@ class RoleJudge:
         """
         suit = []
         number = []
-
-        for i in range(len(hand)):
-            hand[i].show()
+        hand.sort(key=lambda x: x.number(), reverse=True)
 
         for i in range(len(hand)):
             suit.append(hand[i].suit())
@@ -163,23 +166,24 @@ class RoleJudge:
         elif number_of_same_number == 4:    # four of kind
             self.judge_four_of_kind(unique_number)
 
-        self.judge_flush(number)
+        self.judge_flush(number, hand)
         self.judge_straight(descending_unique_number)
-        if self.is_flush & self.is_straight:
-            self.judge_straight_flush(descending_unique_number)
+
+        # if self.is_flush & self.is_straight:
+        #     self.judge_straight_flush(descending_unique_number)
 
 
 def main():
     import card
 
     a_pair_card = []
+    a_pair_card.append(card.Card('D', 8))
     a_pair_card.append(card.Card('C', 1))
     a_pair_card.append(card.Card('C', 3))
-    a_pair_card.append(card.Card('H', 3))
-    a_pair_card.append(card.Card('S', 6))
     a_pair_card.append(card.Card('H', 7))
-    a_pair_card.append(card.Card('D', 8))
     a_pair_card.append(card.Card('S', 12))
+    a_pair_card.append(card.Card('S', 6))
+    a_pair_card.append(card.Card('H', 3))
 
     a_pair = RoleJudge()
     a_pair.judge(a_pair_card)
@@ -195,13 +199,13 @@ def main():
     ----------------------------------
     """
     flush = []
+    flush.append(card.Card('C', 8))
     flush.append(card.Card('C', 1))
+    flush.append(card.Card('C', 13))
     flush.append(card.Card('C', 2))
     flush.append(card.Card('C', 5))
-    flush.append(card.Card('C', 7))
-    flush.append(card.Card('C', 8))
     flush.append(card.Card('C', 9))
-    flush.append(card.Card('C', 13))
+    flush.append(card.Card('C', 7))
 
     flush_card = RoleJudge()
     flush_card.judge(flush)

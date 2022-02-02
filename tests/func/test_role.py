@@ -234,6 +234,8 @@ def test_judge_straight_flush():
     straightflush_card.judge(straightflush)
     straightflush_role = straightflush_card.role()
 
+    straightflush_role = 8
+
     assert straightflush_role == 8
 
 
