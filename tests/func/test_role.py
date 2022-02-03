@@ -9,19 +9,24 @@ from src import (
 
 
 def test_judge_pair():
-    a_pair_card = []
-    a_pair_card.append(card.Card('C', 1))
-    a_pair_card.append(card.Card('C', 3))
-    a_pair_card.append(card.Card('H', 3))
-    a_pair_card.append(card.Card('S', 6))
-    a_pair_card.append(card.Card('H', 7))
-    a_pair_card.append(card.Card('D', 8))
-    a_pair_card.append(card.Card('S', 12))
+    """
+    ----------------------------------
+     A Pair
+    ----------------------------------
+    """
+    test_card = []
+    test_card.append(card.Card('C', 1))
+    test_card.append(card.Card('C', 3))
+    test_card.append(card.Card('H', 3))
+    test_card.append(card.Card('S', 6))
+    test_card.append(card.Card('H', 7))
+    test_card.append(card.Card('D', 8))
+    test_card.append(card.Card('S', 12))
 
-    a_pair = role.RoleJudge()
-    a_pair.judge(a_pair_card)
-    a_pair_role = a_pair.role()
-    assert a_pair_role == 1
+    test_role_judge = role.RoleJudge()
+    test_role_judge.judge(test_card)
+    test_role = test_role_judge.role()
+    assert test_role == 1
 
 
     """
@@ -221,25 +226,42 @@ def test_judge_straight_flush():
      straight flush
     ----------------------------------
     """
-    # straightflush = []
-    # straightflush.append(card.Card('H', 1))
-    # straightflush.append(card.Card('C', 2))
-    # straightflush.append(card.Card('C', 6))
-    # straightflush.append(card.Card('C', 7))
-    # straightflush.append(card.Card('C', 8))
-    # straightflush.append(card.Card('C', 9))
-    # straightflush.append(card.Card('C', 10))
+    straightflush = []
+    straightflush.append(card.Card('H', 1))
+    straightflush.append(card.Card('C', 2))
+    straightflush.append(card.Card('C', 6))
+    straightflush.append(card.Card('C', 7))
+    straightflush.append(card.Card('C', 8))
+    straightflush.append(card.Card('C', 9))
+    straightflush.append(card.Card('C', 10))
 
-    # straightflush_card = role.RoleJudge()
-    # straightflush_card.judge(straightflush)
-    # straightflush_role = straightflush_card.role()
-
-
-    # assert straightflush_role == 8
+    straightflush_card = role.RoleJudge()
+    straightflush_card.judge(straightflush)
+    straightflush_role = straightflush_card.role()
 
 
-def test_judge_royal_flush():
-    pass
+    assert straightflush_role == 8
+
+    """
+    ----------------------------------
+     royal flush
+    ----------------------------------
+    """
+    rflush = []
+    rflush.append(card.Card('C', 1))
+    rflush.append(card.Card('C', 2))
+    rflush.append(card.Card('C', 6))
+    rflush.append(card.Card('C', 10))
+    rflush.append(card.Card('C', 11))
+    rflush.append(card.Card('C', 12))
+    rflush.append(card.Card('C', 13))
+
+    rflush_card = role.RoleJudge()
+    rflush_card.judge(rflush)
+    rflush_role = rflush_card.role()
+
+
+    assert rflush_role == 9
 
 
 def test_how_many_same_numbers():
