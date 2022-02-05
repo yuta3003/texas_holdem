@@ -1,4 +1,6 @@
-from src import deck
+from src import (
+    deck,
+)
 
 
 class Field:

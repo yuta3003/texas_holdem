@@ -1,36 +1,41 @@
-from src import deck
+from src import (
+    deck,
+)
 
 
 class Player:
     def __init__(self, name):
         self.name = name
-        self.hand = []
+        self.__hand = []
+        self.__role = 0
+
+    @property
+    def hand(self):
+        return self.__hand
+
+    @hand.setter
+    def hand(self, hand):
+        self.__hand = hand
+
+    @property
+    def role(self):
+        return self.__role
+
+    @role.setter
+    def role(self, role):
+        self.__role == role
 
     def draw(self, deck):
-        self.hand.append(deck.draw_card())
+        self.__hand.append(deck.draw_card())
         return self
 
     def show_hand(self):
-        for card in self.hand:
+        for card in self.__hand:
             card.show()
 
 
 def main():
-    game_deck = deck.Deck()
-
-    print("----- alice ----------")
-    alice = Player("alice")
-    alice.draw(game_deck)
-    alice.draw(game_deck)
-    alice.show_hand()
-    print("----- alice ----------")
-
-    print("----- bob ----------")
-    bob = Player("bob")
-    bob.draw(game_deck)
-    bob.draw(game_deck)
-    bob.show_hand()
-    print("----- bob ----------")
+    pass
 
 
 if __name__ == '__main__':

@@ -9,6 +9,76 @@ from src import (
 
 
 def test_judge_pair():
+    pass
+
+
+def test_judge_three_of_kind():
+    pass
+
+
+def test_judge_straight():
+    pass
+
+
+def test_judge_flush():
+    pass
+
+
+def test_judge_full_house():
+    pass
+
+
+def test_judge_four_of_kind():
+    pass
+
+
+def test_judge_straight_flush():
+    pass
+
+
+def test_how_many_same_numbers():
+    """
+    ----------------------------------
+     same number = 1
+    ----------------------------------
+    """
+    same_number1 = role.RoleJudge()
+    number = [1, 2, 3, 4, 5, 6, 7]
+    number_collection = collections.Counter(number)
+    same_number1.how_many_same_numbers(number_collection)
+
+    """
+    ----------------------------------
+     same number = 2
+    ----------------------------------
+    """
+    same_number2 = role.RoleJudge()
+    number = [1, 2, 3, 4, 4, 5, 6]
+    number_collection = collections.Counter(number)
+    same_number2.how_many_same_numbers(number_collection)
+
+    """
+    ----------------------------------
+     same number = 3
+    ----------------------------------
+    """
+    same_number3 = role.RoleJudge()
+    number = [1, 2, 3, 4, 4, 4, 5]
+    number_collection = collections.Counter(number)
+    same_number3.how_many_same_numbers(number_collection)
+
+    """
+    ----------------------------------
+     same number = 4
+    ----------------------------------
+    """
+    same_number4 = role.RoleJudge()
+    number = [1, 2, 3, 4, 4, 4, 4]
+    number_collection = collections.Counter(number)
+    same_number4.how_many_same_numbers(number_collection)
+
+
+def test_judge():
     """
     ----------------------------------
      A Pair
@@ -27,7 +97,6 @@ def test_judge_pair():
     test_role_judge.judge(test_card)
     test_role = test_role_judge.role()
     assert test_role == 1
-
 
     """
     ----------------------------------
@@ -68,8 +137,6 @@ def test_judge_pair():
 
     assert test_role == 2
 
-
-def test_judge_three_of_kind():
     """
     ----------------------------------
      three of kind
@@ -90,8 +157,6 @@ def test_judge_three_of_kind():
 
     assert test_role == 3
 
-
-def test_judge_straight():
     """
     ----------------------------------
      straight 1 2 3 4 5
@@ -152,8 +217,6 @@ def test_judge_straight():
 
     assert test_role == 4
 
-
-def test_judge_flush():
     """
     ----------------------------------
      flush
@@ -174,8 +237,6 @@ def test_judge_flush():
 
     assert test_role == 5
 
-
-def test_judge_full_house():
     """
     ----------------------------------
      fullhouse
@@ -196,8 +257,6 @@ def test_judge_full_house():
 
     assert test_role == 6
 
-
-def test_judge_four_of_kind():
     """
     ----------------------------------
      four of kind
@@ -218,8 +277,6 @@ def test_judge_four_of_kind():
 
     assert test_role == 7
 
-
-def test_judge_straight_flush():
     """
     ----------------------------------
      straight flush
@@ -259,49 +316,3 @@ def test_judge_straight_flush():
     test_role = test.role()
 
     assert test_role == 9
-
-
-def test_how_many_same_numbers():
-    """
-    ----------------------------------
-     same number = 1
-    ----------------------------------
-    """
-    same_number1 = role.RoleJudge()
-    number = [1, 2, 3, 4, 5, 6, 7]
-    number_collection = collections.Counter(number)
-    same_number1.how_many_same_numbers(number_collection)
-
-    """
-    ----------------------------------
-     same number = 2
-    ----------------------------------
-    """
-    same_number2 = role.RoleJudge()
-    number = [1, 2, 3, 4, 4, 5, 6]
-    number_collection = collections.Counter(number)
-    same_number2.how_many_same_numbers(number_collection)
-
-    """
-    ----------------------------------
-     same number = 3
-    ----------------------------------
-    """
-    same_number3 = role.RoleJudge()
-    number = [1, 2, 3, 4, 4, 4, 5]
-    number_collection = collections.Counter(number)
-    same_number3.how_many_same_numbers(number_collection)
-
-    """
-    ----------------------------------
-     same number = 4
-    ----------------------------------
-    """
-    same_number4 = role.RoleJudge()
-    number = [1, 2, 3, 4, 4, 4, 4]
-    number_collection = collections.Counter(number)
-    same_number4.how_many_same_numbers(number_collection)
-
-
-def test_judge():
-    pass

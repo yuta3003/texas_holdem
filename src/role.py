@@ -14,9 +14,9 @@ class RoleJudge:
 
     """
     def __init__(self):
-        self.__hand = []
         self.number_collection = collections.Counter()
         self.suit_collection = collections.Counter()
+        self.__hand = []
         self.__role = 0
         """
         0: High Card
@@ -31,15 +31,25 @@ class RoleJudge:
         9: Royal Flush
         """
 
+    @property
     def hand(self):
         return self.__hand
+
+    @hand.setter
+    def hand(self, hand):
+        self.__hand = hand
+
+    @property
+    def role(self):
+        return self.__role
+
+    # @role.setter
+    # def role(self, role):
+    #     self.__role = role
 
     def show_hand(self):
         for i in range(len(self.__hand)):
             self.__hand[i].show()
-
-    def role(self):
-        return self.__role
 
     def judge_pair(self, hand):
         number_of_pair_list = [k for k, v in self.number_collection.items() if v == 2]
@@ -301,7 +311,6 @@ class RoleJudge:
 
 
 def main():
-    import card
     pass
 
 
