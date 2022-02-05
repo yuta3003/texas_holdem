@@ -42,40 +42,81 @@ def test_how_many_same_numbers():
      same number = 1
     ----------------------------------
     """
-    same_number1 = role.RoleJudge()
-    number = [1, 2, 3, 4, 5, 6, 7]
-    number_collection = collections.Counter(number)
-    same_number1.how_many_same_numbers(number_collection)
+    test_card = []
+    test_card.append(card.Card('C', 1))
+    test_card.append(card.Card('C', 3))
+    test_card.append(card.Card('H', 5))
+    test_card.append(card.Card('S', 6))
+    test_card.append(card.Card('H', 7))
+    test_card.append(card.Card('D', 8))
+    test_card.append(card.Card('S', 12))
+
+    test = role.RoleJudge()
+    test_number = test.how_many_same_numbers(test_card)
+    expected_number = 1
+
+    assert test_number == expected_number
+
 
     """
     ----------------------------------
      same number = 2
     ----------------------------------
     """
-    same_number2 = role.RoleJudge()
-    number = [1, 2, 3, 4, 4, 5, 6]
-    number_collection = collections.Counter(number)
-    same_number2.how_many_same_numbers(number_collection)
+    test_card = []
+    test_card.append(card.Card('C', 1))
+    test_card.append(card.Card('C', 3))
+    test_card.append(card.Card('H', 3))
+    test_card.append(card.Card('S', 6))
+    test_card.append(card.Card('H', 6))
+    test_card.append(card.Card('D', 8))
+    test_card.append(card.Card('S', 12))
+
+    test = role.RoleJudge()
+    test_number = test.how_many_same_numbers(test_card)
+    expected_number = 2
+
+    assert test_number == expected_number
 
     """
     ----------------------------------
      same number = 3
     ----------------------------------
     """
-    same_number3 = role.RoleJudge()
-    number = [1, 2, 3, 4, 4, 4, 5]
-    number_collection = collections.Counter(number)
-    same_number3.how_many_same_numbers(number_collection)
+    test_card = []
+    test_card.append(card.Card('C', 1))
+    test_card.append(card.Card('C', 3))
+    test_card.append(card.Card('H', 3))
+    test_card.append(card.Card('S', 6))
+    test_card.append(card.Card('H', 6))
+    test_card.append(card.Card('D', 6))
+    test_card.append(card.Card('S', 8))
+
+    test = role.RoleJudge()
+    test_number = test.how_many_same_numbers(test_card)
+    expected_number = 3
+
+    assert test_number == expected_number
 
     """
     ----------------------------------
      same number = 4
     ----------------------------------
     """
-    same_number4 = role.RoleJudge()
-    number = [1, 2, 3, 4, 4, 4, 4]
-    number_collection = collections.Counter(number)
-    same_number4.how_many_same_numbers(number_collection)
+    test_card = []
+    test_card.append(card.Card('C', 1))
+    test_card.append(card.Card('C', 3))
+    test_card.append(card.Card('H', 6))
+    test_card.append(card.Card('S', 6))
+    test_card.append(card.Card('H', 6))
+    test_card.append(card.Card('D', 6))
+    test_card.append(card.Card('S', 8))
+
+    test = role.RoleJudge()
+    test_number = test.how_many_same_numbers(test_card)
+    expected_number = 4
+
+    assert test_number == expected_number
 
 
 def test_judge():
@@ -93,9 +134,9 @@ def test_judge():
     test_card.append(card.Card('D', 8))
     test_card.append(card.Card('S', 12))
 
-    test_role_judge = role.RoleJudge()
-    test_role_judge.judge(test_card)
-    test_role = test_role_judge.role
+    test = role.RoleJudge()
+    test.judge(test_card)
+    test_role = test.role
     assert test_role == 1
 
     """
@@ -112,9 +153,9 @@ def test_judge():
     test_card.append(card.Card('S', 12))
     test_card.append(card.Card('H', 13))
 
-    test_role_judge = role.RoleJudge()
-    test_role_judge.judge(test_card)
-    test_role = test_role_judge.role
+    test = role.RoleJudge()
+    test.judge(test_card)
+    test_role = test.role
     assert test_role == 2
 
     """
