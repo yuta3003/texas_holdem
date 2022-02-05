@@ -95,7 +95,7 @@ def test_judge():
 
     test_role_judge = role.RoleJudge()
     test_role_judge.judge(test_card)
-    test_role = test_role_judge.role()
+    test_role = test_role_judge.role
     assert test_role == 1
 
     """
@@ -114,7 +114,7 @@ def test_judge():
 
     test_role_judge = role.RoleJudge()
     test_role_judge.judge(test_card)
-    test_role = test_role_judge.role()
+    test_role = test_role_judge.role
     assert test_role == 2
 
     """
@@ -133,7 +133,7 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 2
 
@@ -153,7 +153,7 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 3
 
@@ -173,7 +173,7 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 4
 
@@ -193,7 +193,7 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 4
 
@@ -213,7 +213,7 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 4
 
@@ -233,7 +233,7 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 5
 
@@ -253,7 +253,7 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 6
 
@@ -273,7 +273,7 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 7
 
@@ -293,7 +293,7 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 8
 
@@ -313,6 +313,6 @@ def test_judge():
 
     test = role.RoleJudge()
     test.judge(test_card)
-    test_role = test.role()
+    test_role = test.role
 
     assert test_role == 9

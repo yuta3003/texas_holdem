@@ -43,6 +43,9 @@ class RoleJudge:
     def role(self):
         return self.__role
 
+    """
+    self.__roleを外部から設定することがないのでコメントアウト
+    """
     # @role.setter
     # def role(self, role):
     #     self.__role = role
@@ -113,6 +116,7 @@ class RoleJudge:
     def judge_straight(self, hand):
         """
         ace14=True
+        2~14までのストレートを判定
         """
         consecutive_num = 0
         straight_num_list = []
@@ -143,15 +147,17 @@ class RoleJudge:
 
         """
         ace14=False
+        上記でストレートと判定されなかったが実際にはストレートとなる
+        1~5のストレートを判定
         """
         consecutive_num = 0
         straight_num_list = []
-        hand.sort(key=lambda x: x.number(ace14=False), reverse=True)
+        hand.sort(key=lambda x: x.number(ace14=False), reverse=False)
 
         for i in range(len(hand)-1):
-            if hand[i].number(ace14=False) - hand[i+1].number(ace14=False) == 0:
+            if hand[i+1].number(ace14=False) - hand[i].number(ace14=False) == 0:
                 continue
-            elif hand[i].number(ace14=False) - hand[i+1].number(ace14=False) == 1:
+            elif hand[i+1].number(ace14=False) - hand[i].number(ace14=False) == 1:
                 straight_num_list.append(hand[i].number(ace14=False))
                 consecutive_num += 1
                 if consecutive_num >= 4:
@@ -212,13 +218,13 @@ class RoleJudge:
 
             consecutive_num = 0
             straight_num_list = []
-            judge_hand.sort(key=lambda x: x.number(ace14=False), reverse=True)
+            judge_hand.sort(key=lambda x: x.number(ace14=False), reverse=False)
 
             for i in range(len(judge_hand)-1):
-                if judge_hand[i].number(ace14=False) - judge_hand[i+1].number(ace14=False) == 0:
+                if judge_hand[i+1].number(ace14=False) - judge_hand[i].number(ace14=False) == 0:
                     continue
 
-                elif judge_hand[i].number(ace14=False) - judge_hand[i+1].number(ace14=False) == 1:
+                elif judge_hand[i+1].number(ace14=False) - judge_hand[i].number(ace14=False) == 1:
                     straight_num_list.append(judge_hand[i].number(ace14=False))
                     consecutive_num += 1
                     if consecutive_num >= 4:
