@@ -13,11 +13,7 @@ class RoleJudge:
 
     役を判定しself.__roleに値をセットする。
     その際の手札をself.__handにセットする。
-    """
-    def __init__(self):
-        self.__hand = []
-        self.__role = 0
-        """
+    self.__roleに設定する値
         0: High Card
         1: A Pair
         2: Two Pair
@@ -28,7 +24,10 @@ class RoleJudge:
         7: Four of a Kind
         8: Straight Flush
         9: Royal Flush
-        """
+    """
+    def __init__(self):
+        self.__hand = []
+        self.__role = 0
 
     @property
     def hand(self):
@@ -49,6 +48,9 @@ class RoleJudge:
     # def role(self, role):
     #     self.__role = role
 
+    def update_role(self, role, hand):
+        pass
+
     def judge_pair(self, hand):
 
         # create number_collections
@@ -63,8 +65,10 @@ class RoleJudge:
             number_of_pair_list[1]
             kicker_of_2pair_list = [k for k, v in number_collection.items() if v == 1]
             kicker_of_2pair_list.sort(reverse=True)
-            self.__hand.clear()
+
+            # check self.__role
             self.__role = 2   # Two Pair
+            self.__hand.clear()
             for i in range(len(hand)):
                 if hand[i].number(ace14=True) == number_of_pair_list[0]:
                     self.__hand.append(hand[i])
@@ -75,8 +79,10 @@ class RoleJudge:
         except IndexError:
             kicker_of_1pair_list = [k for k, v in number_collection.items() if v == 1]
             kicker_of_1pair_list.sort(reverse=True)
-            self.__hand.clear()
+
+            # check self.__role
             self.__role = 1   # A Pair
+            self.__hand.clear()
             for i in range(len(hand)):
                 if hand[i].number(ace14=True) == number_of_pair_list[0]:
                     self.__hand.append(hand[i])
@@ -98,6 +104,7 @@ class RoleJudge:
         try:    # Full House
             number_of_fullhouse_list = [k for k, v in number_collection.items() if v >= 2]
             kicker_of_fullhouse = self.judge_full_house(number_of_fullhouse_list)
+
             self.__hand.clear()
             for i in range(len(hand)):
                 if hand[i].number(ace14=True) == number_of_3card:
@@ -121,8 +128,10 @@ class RoleJudge:
             unique_number.sort(reverse=True)
             kicker_of_3card_list = []
             kicker_of_3card_list = unique_number[:2]
-            self.__hand.clear()
+
+            # check self.__role
             self.__role = 3   # Three of a Kind
+            self.__hand.clear()
             for i in range(len(hand)):
                 if hand[i].number(ace14=True) == number_of_3card:
                     self.__hand.append(hand[i])
@@ -154,8 +163,10 @@ class RoleJudge:
                 consecutive_num = 0
 
         if consecutive_num >= 4:
-            self.__hand.clear()
+
+            # check self.__role
             self.__role = 4   # Straight
+            self.__hand.clear()
             for i in range(len(hand)):
                 if hand[i].number(ace14=True) in straight_num_list:
                     self.__hand.append(hand[i])
@@ -185,8 +196,10 @@ class RoleJudge:
                 consecutive_num = 0
 
         if consecutive_num >= 4:
-            self.__hand.clear()
+
+            # check self.__role
             self.__role = 4   # Straight
+            self.__hand.clear()
             for i in range(len(hand)):
                 if hand[i].number(ace14=False) in straight_num_list:
                     self.__hand.append(hand[i])
@@ -203,9 +216,10 @@ class RoleJudge:
         number_of_max_suit = max(suit_collection.values())
         flush_mark = [k for k, v in suit_collection.items() if v == number_of_max_suit][0]
         if number_of_max_suit >= 5:
-            self.__hand.clear()
-            self.__role = 5   # Flush
 
+            # check self.__role
+            self.__role = 5   # Flush
+            self.__hand.clear()
             for i in range(len(hand)):
                 if len(self.__hand) == 5:
                     break
@@ -214,6 +228,7 @@ class RoleJudge:
 
     def judge_full_house(self, number_of_fullhouse_list) -> int:
         number_of_fullhouse_list.sort(reverse=True)
+        # check self.__role
         self.__role = 6   # Full House
         return number_of_fullhouse_list[0]
 
