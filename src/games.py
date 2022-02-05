@@ -21,16 +21,13 @@ class Game:
         self.players = []
         self.game_deck = deck.Deck()
         self.game_field = field.Field()
-        self.game_role = role.RoleJudge()
 
     def deal(self):
 
-        # プレイヤー作成
         for i in range(self.number_of_players):
             self.players.append(player.Player('player' + str(i+1)))
 
         for i in range(self.number_of_players):
-            # TODO: スターティングハンド2を定数化
             for j in range(2):
                 self.players[i].draw(self.game_deck)
 
@@ -54,8 +51,11 @@ class Game:
 
     def role_judge(self):
         for i in range(self.number_of_players):
+            self.game_role = role.RoleJudge()
             hand = self.players[i].hand + self.game_field.community_card
             self.game_role.judge(hand)
+            self.players[i].role = self.game_role.role
+            self.players[i].hand = self.game_role.hand
 
     # ゲーム全体の進行
     def progress(self):

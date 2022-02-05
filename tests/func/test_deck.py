@@ -22,7 +22,7 @@ def test_shuffle():
 
 
 def test_show():
-    test_deck.show()
+    # test_deck.show()
     assert True
 
 

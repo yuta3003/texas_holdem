@@ -3,8 +3,13 @@ class Card:
         self.__suit = suit
         self.__number = number
 
+    @property
     def suit(self):
         return self.__suit
+
+    @suit.setter
+    def suit(self, suit):
+        self.__suit = suit
 
     def number(self, ace14=False):
         number = self.__number
