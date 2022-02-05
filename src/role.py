@@ -50,10 +50,6 @@ class RoleJudge:
     # def role(self, role):
     #     self.__role = role
 
-    def show_hand(self):
-        for i in range(len(self.__hand)):
-            self.__hand[i].show()
-
     def judge_pair(self, hand):
         number_of_pair_list = [k for k, v in self.number_collection.items() if v == 2]
         number_of_pair_list.sort(reverse=True)
@@ -147,7 +143,6 @@ class RoleJudge:
 
         """
         ace14=False
-        上記でストレートと判定されなかったが実際にはストレートとなる
         1~5のストレートを判定
         """
         consecutive_num = 0
@@ -187,7 +182,8 @@ class RoleJudge:
             for i in range(len(hand)):
                 if len(self.__hand) == 5:
                     break
-                if hand[i].suit() == flush_mark:
+                # if hand[i].suit() == flush_mark:
+                if hand[i].suit == flush_mark:
                     self.__hand.append(hand[i])
 
     def judge_full_house(self, number_of_fullhouse_list) -> int:
@@ -213,7 +209,7 @@ class RoleJudge:
         flush_mark = [k for k, v in self.suit_collection.items() if v == number_of_max_suit][0]
         if number_of_max_suit >= 5:
             for i in range(len(hand)):
-                if hand[i].suit() == flush_mark:
+                if hand[i].suit == flush_mark:
                     judge_hand.append(hand[i])
 
             consecutive_num = 0
@@ -291,7 +287,7 @@ class RoleJudge:
         hand.sort(key=lambda x: x.number(), reverse=True)
 
         for i in range(len(hand)):
-            suit.append(hand[i].suit())
+            suit.append(hand[i].suit)
 
         for i in range(len(hand)):
             number.append(hand[i].number(ace14=True))
