@@ -50,18 +50,18 @@ class Game:
             print("Player Name: {}".format(self.players[i].name))
             print(self.players[i].show_hand())
 
-    def role_judge(self):
+    def judge_role(self):
         for i in range(self.number_of_players):
-            self.game_role = role.RoleJudge()
+            self.game_role = role.Role()
             hand = self.players[i].hand + self.game_field.community_card
             self.game_role.judge(hand)
             self.players[i].role = self.game_role.role
             self.players[i].hand = self.game_role.hand
 
-    def winner_judge(self):
-        winner_player = winner.Winner(self.players)
-        ans = winner_player.winner()
-        print(ans.name)
+    def judge_winner(self):
+        game_winner = winner.Winner(self.players)
+        winner_player = game_winner.judge()
+        print(winner_player.name)
 
     # ゲーム全体の進行
     def progress(self):
@@ -71,8 +71,8 @@ class Game:
         self.turn()
         self.river()
         self.showdown()
-        self.role_judge()
-        self.winner_judge()
+        self.judge_role()
+        self.judge_winner()
 
 
 def main():

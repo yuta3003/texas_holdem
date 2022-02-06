@@ -8,7 +8,8 @@ from src import (
 )
 
 
-class RoleJudge:
+# class RoleJudge:
+class Role:
     """役を判定
 
     役を判定しself.__roleに値をセットする。
