@@ -7,7 +7,7 @@ from src import (
 
 @pytest.fixture
 def one_pair():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -23,7 +23,7 @@ def one_pair():
 
 @pytest.fixture
 def two_pair():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -39,7 +39,7 @@ def two_pair():
 
 @pytest.fixture
 def three_pair():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -55,7 +55,7 @@ def three_pair():
 
 @pytest.fixture
 def three_of_kind():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -71,7 +71,7 @@ def three_of_kind():
 
 @pytest.fixture
 def straight1():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -87,7 +87,7 @@ def straight1():
 
 @pytest.fixture
 def straight2():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -103,7 +103,7 @@ def straight2():
 
 @pytest.fixture
 def straight3():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -119,7 +119,7 @@ def straight3():
 
 @pytest.fixture
 def flush():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -135,7 +135,7 @@ def flush():
 
 @pytest.fixture
 def fullhouse():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -151,7 +151,7 @@ def fullhouse():
 
 @pytest.fixture
 def four_of_kind():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))
@@ -167,7 +167,7 @@ def four_of_kind():
 
 @pytest.fixture
 def straight_flush():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('H', 1))
@@ -183,7 +183,7 @@ def straight_flush():
 
 @pytest.fixture
 def royal_flush():
-    test = role.RoleJudge()
+    test = role.Role()
 
     test_card = []
     test_card.append(card.Card('C', 1))

@@ -4,7 +4,7 @@ from src import (
 
 
 class Player:
-    def __init__(self, name):
+    def __init__(self, name='default name'):
         self.__hand = []
         self.__name = name
         self.__role = 0
@@ -31,7 +31,7 @@ class Player:
 
     @role.setter
     def role(self, role):
-        self.__role == role
+        self.__role = role
 
     def draw(self, deck):
         self.__hand.append(deck.draw_card())

@@ -21,12 +21,3 @@ class Card:
 
     def show(self):
         print("{}{}".format(self.__suit, self.__number))
-
-
-def main():
-    card = Card('H', 1)
-    card.show()
-
-
-if __name__ == '__main__':
-    main()
