@@ -5,8 +5,8 @@ from src import (
 
 class Player:
     def __init__(self, name):
-        self.name = name
         self.__hand = []
+        self.__name = name
         self.__role = 0
 
     @property
@@ -16,6 +16,14 @@ class Player:
     @hand.setter
     def hand(self, hand):
         self.__hand = hand
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        self.__name = name
 
     @property
     def role(self):

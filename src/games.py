@@ -3,6 +3,7 @@ from src import (
     field,
     player,
     role,
+    winner,
 )
 
 
@@ -57,6 +58,11 @@ class Game:
             self.players[i].role = self.game_role.role
             self.players[i].hand = self.game_role.hand
 
+    def winner_judge(self):
+        winner_player = winner.Winner(self.players)
+        ans = winner_player.winner()
+        print(ans.name)
+
     # ゲーム全体の進行
     def progress(self):
         self.deal()
@@ -66,6 +72,7 @@ class Game:
         self.river()
         self.showdown()
         self.role_judge()
+        self.winner_judge()
 
 
 def main():
