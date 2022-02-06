@@ -42,28 +42,28 @@ def test_judge_straight_flush():
 
 
 def test_how_many_same_numbers1(same_number1):
-    test = role.RoleJudge()
+    test = role.Role()
     test_number = test.how_many_same_numbers(same_number1)
 
     expected_number = 1
     assert test_number == expected_number
 
 def test_how_many_same_numbers2(same_number2):
-    test = role.RoleJudge()
+    test = role.Role()
     test_number = test.how_many_same_numbers(same_number2)
 
     expected_number = 2
     assert test_number == expected_number
 
 def test_how_many_same_numbers3(same_number3):
-    test = role.RoleJudge()
+    test = role.Role()
     test_number = test.how_many_same_numbers(same_number3)
 
     expected_number = 3
     assert test_number == expected_number
 
 def test_how_many_same_numbers4(same_number4):
-    test = role.RoleJudge()
+    test = role.Role()
     test_number = test.how_many_same_numbers(same_number4)
 
     expected_number = 4
