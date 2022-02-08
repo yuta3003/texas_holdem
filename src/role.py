@@ -8,7 +8,6 @@ from src import (
 )
 
 
-# class RoleJudge:
 class Role:
     """役を判定
 
@@ -28,7 +27,7 @@ class Role:
     """
     def __init__(self):
         self.__hand = []    # 役成立時のハンド
-        self.__role = 0
+        self.__role = -1
 
     @property
     def hand(self):
@@ -53,6 +52,11 @@ class Role:
         if self.__role < role:
             self.__role = role
             self.__hand = hand
+
+    def judge_high_card(self, hand):
+        current_role = 0
+        current_hand = hand[:5]
+        self.update_role(current_role, current_hand)
 
     def judge_pair(self, hand):
         # create number_collections
@@ -366,6 +370,7 @@ class Role:
         """
         hand.sort(key=lambda x: x.number(ace14=True), reverse=True)
 
+        self.judge_high_card(hand)
         number_of_same_number = self.how_many_same_numbers(hand)
         if number_of_same_number == 2:  # Pair
             self.judge_pair(hand)

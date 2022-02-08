@@ -60,8 +60,11 @@ class Game:
 
     def judge_winner(self):
         game_winner = winner.Winner(self.players)
-        winner_player = game_winner.judge()
-        print(winner_player.name)
+        winner_index = game_winner.judge()
+        if winner_index == -1:
+            print('Draw')
+        else:
+            print(self.players[winner_index].name)
 
     # ゲーム全体の進行
     def progress(self):
