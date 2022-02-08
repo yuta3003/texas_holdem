@@ -1,11 +1,4 @@
 import collections
-from typing import (
-    List,
-)
-
-from src import (
-    card,
-)
 
 
 class Role:

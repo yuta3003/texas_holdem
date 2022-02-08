@@ -1,11 +1,3 @@
-import collections
-# import numpy as np
-
-from src import (
-    player,
-)
-
-
 class Winner:
     def __init__(self, players):
         self.players = players
@@ -28,7 +20,6 @@ class Winner:
         return winner_index
 
     def judge(self):
-        print(self.players[0].hand[2])
         winner_index = -1
         max_role_index = self.players_role_list.index(max(self.players_role_list))
         number_of_max_index = self.players_role_list.count(self.players[max_role_index].role)
@@ -41,7 +32,6 @@ class Winner:
             """
             役の数字を見ないと勝敗がつかないパターン
             """
-            # winner_index = -1
             same_role_index_list = []
             for i in range(len(self.players)):
                 if self.players[i].role == self.players[max_role_index].role:

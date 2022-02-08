@@ -1,8 +1,3 @@
-from src import (
-    deck,
-)
-
-
 class Player:
     def __init__(self, name='default name'):
         self.__hand = []

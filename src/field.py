@@ -1,8 +1,3 @@
-from src import (
-    deck,
-)
-
-
 class Field:
     def __init__(self):
         self.community_card = []
