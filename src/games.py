@@ -3,6 +3,7 @@ from src import (
     field,
     player,
     role,
+    winner,
 )
 
 
@@ -49,13 +50,21 @@ class Game:
             print("Player Name: {}".format(self.players[i].name))
             print(self.players[i].show_hand())
 
-    def role_judge(self):
+    def judge_role(self):
         for i in range(self.number_of_players):
-            self.game_role = role.RoleJudge()
+            self.game_role = role.Role()
             hand = self.players[i].hand + self.game_field.community_card
             self.game_role.judge(hand)
             self.players[i].role = self.game_role.role
             self.players[i].hand = self.game_role.hand
+
+    def judge_winner(self):
+        game_winner = winner.Winner(self.players)
+        winner_index = game_winner.judge()
+        if winner_index == -1:
+            print('Draw')
+        else:
+            print(self.players[winner_index].name)
 
     # ゲーム全体の進行
     def progress(self):
@@ -65,7 +74,8 @@ class Game:
         self.turn()
         self.river()
         self.showdown()
-        self.role_judge()
+        self.judge_role()
+        self.judge_winner()
 
 
 def main():

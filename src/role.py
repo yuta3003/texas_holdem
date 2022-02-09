@@ -1,14 +1,7 @@
 import collections
-from typing import (
-    List,
-)
-
-from src import (
-    card,
-)
 
 
-class RoleJudge:
+class Role:
     """役を判定
 
     役を判定しself.__roleに値をセットする。
@@ -26,8 +19,8 @@ class RoleJudge:
         9: Royal Flush
     """
     def __init__(self):
-        self.__hand = []
-        self.__role = 0
+        self.__hand = []    # 役成立時のハンド
+        self.__role = -1
 
     @property
     def hand(self):
@@ -53,6 +46,11 @@ class RoleJudge:
             self.__role = role
             self.__hand = hand
 
+    def judge_high_card(self, hand):
+        current_role = 0
+        current_hand = hand[:5]
+        self.update_role(current_role, current_hand)
+
     def judge_pair(self, hand):
         # create number_collections
         number = []
@@ -69,24 +67,33 @@ class RoleJudge:
 
             current_role = 2
             current_hand = []
+
+            # 役を優先して手札の先頭に置く
             for i in range(len(hand)):
                 if hand[i].number(ace14=True) == number_of_pair_list[0]:
                     current_hand.append(hand[i])
                 elif hand[i].number(ace14=True) == number_of_pair_list[1]:
                     current_hand.append(hand[i])
-                elif hand[i].number(ace14=True) == kicker_of_2pair_list[0]:
+
+            for i in range(len(hand)):
+                if hand[i].number(ace14=True) == kicker_of_2pair_list[0]:
                     current_hand.append(hand[i])
             self.update_role(current_role, current_hand)
+
         except IndexError:
             kicker_of_1pair_list = [k for k, v in number_collection.items() if v == 1]
             kicker_of_1pair_list.sort(reverse=True)
 
             current_role = 1
             current_hand = []
+
+            # 役を優先して手札の先頭に置く
             for i in range(len(hand)):
                 if hand[i].number(ace14=True) == number_of_pair_list[0]:
                     current_hand.append(hand[i])
-                elif hand[i].number(ace14=True) in kicker_of_1pair_list:
+
+            for i in range(len(hand)):
+                if hand[i].number(ace14=True) in kicker_of_1pair_list:
                     current_hand.append(hand[i])
             self.update_role(current_role, current_hand)
 
@@ -109,9 +116,11 @@ class RoleJudge:
 
             current_role = 6
             current_hand = []
+
             for i in range(len(hand)):
                 if hand[i].number(ace14=True) == number_of_3card:
                     current_hand.append(hand[i])
+
             for i in range(len(hand)):
                 if len(current_hand) == 5:
                     break
@@ -136,7 +145,9 @@ class RoleJudge:
             for i in range(len(hand)):
                 if hand[i].number(ace14=True) == number_of_3card:
                     current_hand.append(hand[i])
-                elif hand[i].number(ace14=True) in kicker_of_3card_list:
+
+            for i in range(len(hand)):
+                if hand[i].number(ace14=True) in kicker_of_3card_list:
                     current_hand.append(hand[i])
             self.update_role(current_role, current_hand)
 
@@ -202,6 +213,7 @@ class RoleJudge:
             for i in range(len(hand)):
                 if hand[i].number(ace14=False) in straight_num_list:
                     current_hand.append(hand[i])
+            current_hand.sort(key=lambda x: x.number(ace14=True), reverse=True)
             self.update_role(current_role, current_hand)
             return
 
@@ -223,6 +235,7 @@ class RoleJudge:
                     break
                 if hand[i].suit == flush_mark:
                     current_hand.append(hand[i])
+            current_hand.sort(key=lambda x: x.number(ace14=True), reverse=True)
             self.update_role(current_role, current_hand)
 
     def judge_four_of_kind(self, hand):
@@ -239,10 +252,13 @@ class RoleJudge:
 
         current_role = 7
         current_hand = []
+
         for i in range(len(hand)):
             if hand[i].number(ace14=True) == number_of_4card:
                 current_hand.append(hand[i])
-            elif hand[i].number(ace14=True) == kicker_of_4card:
+
+        for i in range(len(hand)):
+            if hand[i].number(ace14=True) == kicker_of_4card:
                 current_hand.append(hand[i])
         self.update_role(current_role, current_hand)
 
@@ -347,6 +363,7 @@ class RoleJudge:
         """
         hand.sort(key=lambda x: x.number(ace14=True), reverse=True)
 
+        self.judge_high_card(hand)
         number_of_same_number = self.how_many_same_numbers(hand)
         if number_of_same_number == 2:  # Pair
             self.judge_pair(hand)

@@ -28,12 +28,3 @@ class Deck:
 
     def draw_card(self):
         return self.__cards.pop()
-
-
-def main():
-    deck = Deck()
-    deck.show()
-
-
-if __name__ == '__main__':
-    main()

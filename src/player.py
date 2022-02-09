@@ -1,12 +1,7 @@
-from src import (
-    deck,
-)
-
-
 class Player:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, name='default name'):
         self.__hand = []
+        self.__name = name
         self.__role = 0
 
     @property
@@ -18,12 +13,20 @@ class Player:
         self.__hand = hand
 
     @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        self.__name = name
+
+    @property
     def role(self):
         return self.__role
 
     @role.setter
     def role(self, role):
-        self.__role == role
+        self.__role = role
 
     def draw(self, deck):
         self.__hand.append(deck.draw_card())
