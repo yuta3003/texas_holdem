@@ -9,7 +9,7 @@ from src import (
 
 
 def test_update_role():
-    pass
+    role.Role()
 
 
 def test_judge_pair():
