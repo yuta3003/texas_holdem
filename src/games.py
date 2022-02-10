@@ -58,11 +58,14 @@ class Game:
             self.players[i].role = self.game_role.role
             self.players[i].hand = self.game_role.hand
 
+    def result_draw(self):
+        print('Draw')
+
     def judge_winner(self):
         game_winner = winner.Winner(self.players)
         winner_index = game_winner.judge()
         if winner_index == -1:
-            print('Draw')
+            self.result_draw()
         else:
             print(self.players[winner_index].name)
 
