@@ -11,8 +11,14 @@ class Deck:
         self.build()
         self.shuffle()
 
+    @property
     def cards(self):
         return self.__cards
+
+    @cards.setter
+    def cards(self, cards):
+        self.__cards = cards
+
 
     def build(self):
         for i in ["C", "D", "H", "S"]:
