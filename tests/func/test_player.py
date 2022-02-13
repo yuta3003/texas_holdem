@@ -25,15 +25,28 @@ def test_draw():
 
 
 
-def test_show_hand():
-    # game_player.show_hand()
+def test_show_hand(capfd):
     expected_hand = []
     expected_hand.append(card.Card('C', 2))
     expected_hand.append(card.Card('C', 5))
     expected_hand.append(card.Card('C', 7))
     expected_hand.append(card.Card('C', 9))
     expected_hand.append(card.Card('C', 12))
-
     game_player.hand = expected_hand
-    for i in range(len(game_player.hand)):
-        print(game_player.hand[i].number)
+
+    game_player.show_hand()
+
+    expected_out = 'C2'
+    expected_out += '\n'
+    expected_out += 'C5'
+    expected_out += '\n'
+    expected_out += 'C7'
+    expected_out += '\n'
+    expected_out += 'C9'
+    expected_out += '\n'
+    expected_out += 'C12'
+    expected_out += '\n'
+
+    out, err = capfd.readouterr()
+    assert out == expected_out
+    assert err == ''
