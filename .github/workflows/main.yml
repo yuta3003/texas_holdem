@@ -59,12 +59,12 @@ jobs:
         run: pytest
         # run: poetry run pytest test --cov=./texas_holdem --cov-report=xml
 
-      # - name: Upload coverage to Codecov
-      #   # 上記のstepsが全て完了した場合にcodecovへupload
-      #   # 今回はpublic repositoryのためKEYは不要だが、privateなら必要なので注意
-      #   if: ${{ matrix.python-version==3.9 }}
-      #   uses: codecov/codecov-action@v1
-      #   with:
-      #     file: ./coverage.xml
-      #     name: codecov-umbrella
-      #     fail_ci_if_error: true
+      - name: Upload coverage to Codecov
+        # 上記のstepsが全て完了した場合にcodecovへupload
+        # 今回はpublic repositoryのためKEYは不要だが、privateなら必要なので注意
+        if: ${{ matrix.python-version==3.9 }}
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage.xml
+          name: codecov-umbrella
+          fail_ci_if_error: true
