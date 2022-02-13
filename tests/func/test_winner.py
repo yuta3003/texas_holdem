@@ -1,4 +1,4 @@
-from src import (
+from texas_holdem import (
     card,
     player,
     winner,

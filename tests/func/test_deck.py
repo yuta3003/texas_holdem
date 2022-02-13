@@ -1,6 +1,6 @@
 import pytest
 
-from src import (
+from texas_holdem import (
     card,
     deck,
 )
