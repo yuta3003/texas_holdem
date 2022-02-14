@@ -47,7 +47,7 @@ jobs:
         run: poetry install --no-interaction
       # pytest を実行しカバレッジを取得する
       - name: Run Tests
-        run: poetry run pytest --cov=kenall --cov-branch -v ./tests/test_* --cov-report=xml
+        run: poetry run pytest --cov=texas_holdem --cov-branch -v ./tests/test_* --cov-report=xml
       # codecovへカバレッジ結果をupload
       - name: Upload coverage to Codecov
         if: ${{ matrix.python-version==3.9 }}
