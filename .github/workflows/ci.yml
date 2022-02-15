@@ -29,7 +29,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       # ランタイムセットアップ
-      # バージョンは `strategy.matrix` に並べたものを指定する
       # See: https://github.com/actions/setup-python
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
@@ -53,7 +52,7 @@ jobs:
         if: ${{ matrix.python-version==3.9 }}
         uses: codecov/codecov-action@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # ← CODECOVのアップロードトークン
+          token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage.xml
           name: codecov-umbrella
           fail_ci_if_error: true
