@@ -1,4 +1,14 @@
+"""
+Todo:
+    - None
+"""
 class Field:
+    """class説明のタイトル
+    classの説明文を記入
+
+    Attributes:
+        community_card (list)   : cardオブジェクトをリストで保持します
+    """
     def __init__(self):
         self.community_card = []
 

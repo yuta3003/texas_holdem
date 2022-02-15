@@ -1,3 +1,7 @@
+"""
+Todo:
+    - None
+"""
 import random
 
 from texas_holdem import (
@@ -6,6 +10,12 @@ from texas_holdem import (
 
 
 class Deck:
+    """class説明のタイトル
+    classの説明文を記入
+
+    Attributes:
+        cards (list)    : cardオブジェクトをリストで保持します
+    """
     def __init__(self):
         self.__cards = []
         self.build()

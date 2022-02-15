@@ -1,4 +1,15 @@
+"""
+Todo:
+    - None
+"""
 class Winner:
+    """class説明のタイトル
+    classの説明文を記入
+
+    Attributes:
+        players (list)  : Playerオブジェクトを持つリスト
+        players_role_list (list)    : 役の強さを保持します
+    """
     def __init__(self, players):
         self.players = players
         self.players_role_list = []

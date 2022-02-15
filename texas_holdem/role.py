@@ -1,22 +1,27 @@
+"""
+Todo:
+    - None
+"""
 import collections
 
 
 class Role:
-    """役を判定
+    """class説明のタイトル
+    classの説明文を記入
 
-    役を判定しself.__roleに値をセットする。
-    その際の手札をself.__handにセットする。
-    self.__roleに設定する値
-        0: High Card
-        1: A Pair
-        2: Two Pair
-        3: Three of a Kind
-        4: Straight
-        5: Flush
-        6: Full House
-        7: Four of a Kind
-        8: Straight Flush
-        9: Royal Flush
+    Attributes:
+        hand (list)     : cardオブジェクトをリストで保持します
+        role (int)      : 役の強さを保持します
+            0: High Card
+            1: A Pair
+            2: Two Pair
+            3: Three of a Kind
+            4: Straight
+            5: Flush
+            6: Full House
+            7: Four of a Kind
+            8: Straight Flush
+            9: Royal Flush
 
     """
     def __init__(self):
@@ -374,11 +379,3 @@ class Role:
         self.judge_flush(hand)
         self.judge_straight(hand)
         self.judge_straight_flush(hand)
-
-
-def main():
-    pass
-
-
-if __name__ == '__main__':
-    main()

@@ -1,3 +1,7 @@
+"""
+Todo:
+    - None
+"""
 from texas_holdem import (
     deck,
     field,
@@ -8,13 +12,15 @@ from texas_holdem import (
 
 
 class Game:
-    """
-    メインゲーム
+    """class説明のタイトル
+    classの説明文を記入
 
-    Examples
-    --------
-    >>> game = Game()
-    >>> game.progress() # ゲームスタート
+    Attributes:
+        cards (list)    : cardオブジェクトをリストで保持します
+
+    Examples:
+        >>> game = Game()
+        >>> game.progress() # ゲームスタート
     """
 
     def __init__(self, number_of_players=2):
