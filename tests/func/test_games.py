@@ -5,7 +5,6 @@ from texas_holdem import (
 )
 
 
-
 def test_deal():
     for i in range(2, 6):
         expected_out = i

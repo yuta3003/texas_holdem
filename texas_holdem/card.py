@@ -1,6 +1,6 @@
 """
 Todo:
-    - None
+    - show()で表示するのを文字列から画像に変更する
 """
 class Card:
     """class説明のタイトル

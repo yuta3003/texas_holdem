@@ -176,7 +176,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "c5a5e6fa990e3d1ebdb47d34d222c96270a79a184d434582ba2d79890158cfcc"
+content-hash = "a86183d21e95edbfeca446150bc42f038bbe6b6fca2eaed496fa7a31eb0e9f22"
 
 [metadata.files]
 atomicwrites = [
@@ -237,6 +237,9 @@ coverage = [
 flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},
+]
+format = [
+    {file = "format-1.0.tar.gz", hash = "sha256:7df1038dc12888ba294a0c85ba81a141734121b9f645244189b0a62e79cd364d"},
 ]
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
