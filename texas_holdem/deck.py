@@ -29,11 +29,13 @@ class Deck:
     def cards(self, cards):
         self.__cards = cards
 
-
     def build(self):
         for i in ["C", "D", "H", "S"]:
             for j in range(1, 14):
-                self.__cards.append(card.Card(i, j))
+                file_dir = "./images/"
+                file_name = str(i) + str(j) + ".png"
+                file_path = file_dir + file_name
+                self.__cards.append(card.Card(i, j, file_path))
 
     def shuffle(self):
         random.shuffle(self.__cards)
