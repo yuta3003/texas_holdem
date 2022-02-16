@@ -1,5 +1,16 @@
+"""
+Todo:
+    - None
+"""
+
+from texas_holdem import (
+    games,
+)
+
+
 def main():
-    pass
+    game = games.Game()
+    game.progress()
 
 
 if __name__ == '__main__':
