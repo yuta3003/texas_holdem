@@ -1,4 +1,8 @@
-from src import (
+"""
+Todo:
+    - None
+"""
+from texas_holdem import (
     deck,
     field,
     player,
@@ -8,13 +12,15 @@ from src import (
 
 
 class Game:
-    """
-    メインゲーム
+    """class説明のタイトル
+    classの説明文を記入
 
-    Examples
-    --------
-    >>> game = Game()
-    >>> game.progress() # ゲームスタート
+    Attributes:
+        cards (list)    : cardオブジェクトをリストで保持します
+
+    Examples:
+        >>> game = Game()
+        >>> game.progress() # ゲームスタート
     """
 
     def __init__(self, number_of_players=2):
@@ -58,11 +64,14 @@ class Game:
             self.players[i].role = self.game_role.role
             self.players[i].hand = self.game_role.hand
 
+    def result_draw(self):
+        print('Draw')
+
     def judge_winner(self):
         game_winner = winner.Winner(self.players)
         winner_index = game_winner.judge()
         if winner_index == -1:
-            print('Draw')
+            self.result_draw()
         else:
             print(self.players[winner_index].name)
 

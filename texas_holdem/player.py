@@ -1,4 +1,17 @@
+"""
+Todo:
+    - None
+"""
 class Player:
+    """class説明のタイトル
+    classの説明文を記入
+
+    Attributes:
+        hand (list)     : cardオブジェクトをリストで保持します
+        name (string)   : Playerの名前を保持します
+        role (int)      : Playerの役の強さを保持します
+
+    """
     def __init__(self, name='default name'):
         self.__hand = []
         self.__name = name
@@ -35,11 +48,3 @@ class Player:
     def show_hand(self):
         for card in self.__hand:
             card.show()
-
-
-def main():
-    pass
-
-
-if __name__ == '__main__':
-    main()

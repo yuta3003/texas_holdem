@@ -1,6 +1,8 @@
 import pytest
 
-from src import card
+from texas_holdem import (
+    card,
+)
 
 
 def test_suit():
@@ -22,5 +24,15 @@ def test_number():
             assert test_card.number(ace14=True) == j
 
 
-def test_show():
-    assert True
+def test_show(capfd):
+    for i in ["C", "D", "H", "S"]:
+        for j in range(1, 14):
+            test_card = card.Card(i, j)
+            out_str = i
+            out_str += str(j)
+            out_str += "\n"
+
+            test_card.show()
+            out, err = capfd.readouterr()
+            assert out == out_str
+            assert err == ''

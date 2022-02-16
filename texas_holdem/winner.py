@@ -1,11 +1,20 @@
+"""
+Todo:
+    - None
+"""
 class Winner:
+    """class説明のタイトル
+    classの説明文を記入
+
+    Attributes:
+        players (list)  : Playerオブジェクトを持つリスト
+        players_role_list (list)    : 役の強さを保持します
+    """
     def __init__(self, players):
         self.players = players
         self.players_role_list = []
-        for i in range(len(self.players)):
-            self.players_role_list.append(self.players[i].role)
 
-    def check_hand(self, same_role_index_list):
+    def check_rank(self, same_role_index_list):
         winner_index = 0
         for i in range(len(same_role_index_list)-1):
             for j in range(5):
@@ -20,6 +29,9 @@ class Winner:
         return winner_index
 
     def judge(self):
+        for i in range(len(self.players)):
+            self.players_role_list.append(self.players[i].role)
+
         winner_index = -1
         max_role_index = self.players_role_list.index(max(self.players_role_list))
         number_of_max_index = self.players_role_list.count(self.players[max_role_index].role)
@@ -36,5 +48,5 @@ class Winner:
             for i in range(len(self.players)):
                 if self.players[i].role == self.players[max_role_index].role:
                     same_role_index_list.append(i)
-            winner_index = self.check_hand(same_role_index_list)
+            winner_index = self.check_rank(same_role_index_list)
         return winner_index
