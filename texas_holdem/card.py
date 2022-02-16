@@ -10,9 +10,10 @@ class Card:
         suit (string)   : cardオブジェクトのマークを保持します
         number (int)    : cardオブジェクトの数字を保持します
     """
-    def __init__(self, suit: str = 'N', number: int = 0):
+    def __init__(self, suit: str = 'N', number: int = 0, file_path: str = 'None'):
         self.__suit = suit
         self.__number = number
+        self.__file_path = file_path
 
     @property
     def suit(self):
@@ -21,6 +22,14 @@ class Card:
     @suit.setter
     def suit(self, suit):
         self.__suit = suit
+
+    @property
+    def file_path(self):
+        return self.__file_path
+
+    @file_path.setter
+    def file_path(self, file_path):
+        self.__file_path = file_path
 
     def number(self, ace14=False):
         """関数説明のタイトル
