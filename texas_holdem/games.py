@@ -111,7 +111,7 @@ class Game:
             return rever_card
 
         if winner:
-            return winner
+            return winner_player
 
 
 def main():
