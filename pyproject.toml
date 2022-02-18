@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "texas_holdem"
-version = "0.2.2"
+version = "0.2.3"
 description = ""
 authors = ["yuta3003 <y.nakazawa3003+github@gmail.com>"]
 
