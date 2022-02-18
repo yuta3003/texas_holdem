@@ -43,12 +43,18 @@ class Game:
 
     def flop(self):
         self.game_field.flop(self.game_deck)
+        flop_card = self.game_field.community_card
+        return flop_card
 
     def turn(self):
         self.game_field.turn(self.game_deck)
+        turn_card = self.game_field.community_card[-1]
+        return turn_card
 
     def river(self):
         self.game_field.river(self.game_deck)
+        river_card = self.game_field.community_card[-1]
+        return river_card
 
     def showdown(self):
         print(self.game_field.show_card())
@@ -86,22 +92,32 @@ class Game:
             winner=False):
         self.deal()
         self.preflop()
-        self.flop()
-        self.turn()
-        self.river()
+        flop_card = self.flop()
+        turn_card = self.turn()
+        river_card = self.river()
         self.showdown()
         self.judge_role()
-        winner = self.judge_winner()
+        winner_player = self.judge_winner()
+        if preflop:
+            pass
+
+        if flop:
+            return flop_card
+
+        if turn:
+            return turn_card
+
+        if river:
+            return rever_card
 
         if winner:
-            """
-            """
             return winner
 
 
 def main():
     game = Game()
-    game.progress(winner=True)
+    winner = game.progress(winner=True)
+    print("勝者:", winner)
 
 
 if __name__ == '__main__':
