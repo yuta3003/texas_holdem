@@ -101,7 +101,7 @@ class Game:
 
 def main():
     game = Game()
-    game.progress()
+    game.progress(winner=True)
 
 
 if __name__ == '__main__':
