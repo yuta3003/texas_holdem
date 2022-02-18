@@ -72,11 +72,18 @@ class Game:
         winner_index = game_winner.judge()
         if winner_index == -1:
             self.result_draw()
+            return 'Draw'
         else:
             print(self.players[winner_index].name)
+            return self.players[winner_index].name
 
     # ゲーム全体の進行
-    def progress(self):
+    def progress(self,
+            preflop=False,
+            flop=False,
+            turn=False,
+            river=False,
+            winner=False):
         self.deal()
         self.preflop()
         self.flop()
@@ -84,7 +91,12 @@ class Game:
         self.river()
         self.showdown()
         self.judge_role()
-        self.judge_winner()
+        winner = self.judge_winner()
+
+        if winner:
+            """
+            """
+            return winner
 
 
 def main():
