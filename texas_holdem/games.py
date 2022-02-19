@@ -84,12 +84,7 @@ class Game:
             return self.players[winner_index].name
 
     # ゲーム全体の進行
-    def progress(self,
-            preflop=False,
-            flop=False,
-            turn=False,
-            river=False,
-            winner=False):
+    def progress(self):
         self.deal()
         self.preflop()
         flop_card = self.flop()
@@ -98,26 +93,11 @@ class Game:
         self.showdown()
         self.judge_role()
         winner_player = self.judge_winner()
-        if preflop:
-            pass
-
-        if flop:
-            return flop_card
-
-        if turn:
-            return turn_card
-
-        if river:
-            return rever_card
-
-        if winner:
-            return winner_player
 
 
 def main():
     game = Game()
-    winner = game.progress(winner=True)
-    print("勝者:", winner)
+    game.progress()
 
 
 if __name__ == '__main__':
