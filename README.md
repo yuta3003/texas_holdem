@@ -2,21 +2,20 @@
 
 # TEXAS HOLDEM
 
-# Demo
-# Features
-
-# Installation
-## Using pip
+## Demo
+## Features
+## Installation
+### Using pip
 ```bash
 pip install 'git+https://github.com/yuta3003/texas_holdem.git#main'
 ```
 
-## Using poetry
+### Using poetry
 ```bash
 poetry add 'git+https://github.com/yuta3003/texas_holdem.git#main'
 ```
 
-# Usage
+## Usage
 ```python
 from texas_holdem import games
 
@@ -25,4 +24,4 @@ game = games.Game()
 game.progress()
 ```
 
-# Note
+## Note
